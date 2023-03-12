@@ -45,6 +45,10 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+tasks.withType<JavaCompile> {
+    options.isIncremental = true
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }
