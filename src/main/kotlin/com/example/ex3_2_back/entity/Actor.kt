@@ -6,5 +6,5 @@ import jakarta.persistence.Id
 @Entity
 class Actor(
     @Id
-    var id: Int = 0
+    var id: Int = 0,
 )
