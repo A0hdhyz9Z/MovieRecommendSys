@@ -6,7 +6,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "m_user")
+@Table
 class User(
     @Id
     var id: Int = 0,

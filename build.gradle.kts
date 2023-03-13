@@ -29,6 +29,8 @@ dependencies {
     // mysql
     implementation("mysql:mysql-connector-java:8.0.32")
 
+
+
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     compileOnly("org.projectlombok:lombok")
