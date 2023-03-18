@@ -1,4 +1,4 @@
-package com.example.ex3_2_back.algorithm
+package com.example.ex3_2_back.util
 
 import org.springframework.stereotype.Component
 

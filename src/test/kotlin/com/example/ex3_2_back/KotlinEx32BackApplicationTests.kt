@@ -15,7 +15,7 @@ class KotlinEx32BackApplicationTests {
 
     @Test
     fun contextLoads() {
-        userRepository.save(User(id = 1))
+        userRepository.save(User(name="test", password="test"))
     }
 
     @Test

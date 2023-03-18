@@ -8,7 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootTest
-public class UserRepositoryTest {
+public class JavaUserRepositoryTest {
+
     @Test
     void nothing() {
         System.out.println("Hello");
