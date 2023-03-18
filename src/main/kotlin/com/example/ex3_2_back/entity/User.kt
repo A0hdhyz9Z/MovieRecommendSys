@@ -8,5 +8,11 @@ class User(
     @Id
     var id: Int = 0,
     var name: String = "",
-    var password: String = ""
+    var password: String = "",
+    @Transient
+    var token: String = "",
+    @Transient
+    var isLogin: Boolean = false,
+    @Transient
+    var requestTime: Boolean = false
 )

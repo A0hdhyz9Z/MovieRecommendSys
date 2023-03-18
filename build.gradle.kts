@@ -38,6 +38,7 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.projectlombok:lombok")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    implementation("com.auth0:java-jwt:3.18.2")
 }
 
 tasks.withType<KotlinCompile> {
