@@ -44,8 +44,8 @@ public class AuthController {
 
     }
 
-    @PostMapping("/login2")
-    DataResult<String> login2(@RequestBody User user) {
+    @PostMapping("/v2login")
+    DataResult<String>login(@RequestBody User user) {
 
         Optional<User> optUserInDB = userRepository.findByIdAndName(user.getId(),user.getName());
 
@@ -67,8 +67,6 @@ public class AuthController {
         if (optionalUser.isEmpty()) {
             return new Result(false,"token无效");
         }
-
-
-
+        return new Result (true,"token有效");
     }
 }

@@ -1,16 +1,14 @@
 package com.example.ex3_2_back;
 
+import com.example.ex3_2_back.util.TestAlgorithm__TestContext001_BeanDefinitions;
 import com.example.ex3_2_back.config.MyAlgorithmConfiguration__TestContext001_BeanDefinitions;
 import com.example.ex3_2_back.config.MyCorsConfiguration__TestContext001_BeanDefinitions;
-import com.example.ex3_2_back.config.MySecurityConfiguration__TestContext001_BeanDefinitions;
 import com.example.ex3_2_back.controller.AuthController__TestContext001_BeanDefinitions;
 import com.example.ex3_2_back.controller.TestsController__TestContext001_BeanDefinitions;
 import com.example.ex3_2_back.repositry.ActorRepository__TestContext001_BeanDefinitions;
 import com.example.ex3_2_back.repositry.MovieRepository__TestContext001_BeanDefinitions;
 import com.example.ex3_2_back.repositry.UserRepository__TestContext001_BeanDefinitions;
 import com.example.ex3_2_back.repositry.WorkerRepository__TestContext001_BeanDefinitions;
-import com.example.ex3_2_back.util.MySecurity__TestContext001_BeanDefinitions;
-import com.example.ex3_2_back.util.TestAlgorithm__TestContext001_BeanDefinitions;
 import org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator__TestContext001_BeanDefinitions;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages__TestContext001_BeanDefinitions;
@@ -113,6 +111,8 @@ public class Ex32BackApplicationTests__TestContext001_BeanFactoryRegistrations {
     beanFactory.registerBeanDefinition("testsController", TestsController__TestContext001_BeanDefinitions.getTestsControllerBeanDefinition());
     beanFactory.registerBeanDefinition("mySecurity", MySecurity__TestContext001_BeanDefinitions.getMySecurityBeanDefinition());
     beanFactory.registerBeanDefinition("testAlgorithm", TestAlgorithm__TestContext001_BeanDefinitions.getTestAlgorithmBeanDefinition());
+    beanFactory.registerBeanDefinition("testSecurity", TestSecurity__TestContext001_BeanDefinitions.getTestSecurityBeanDefinition());
+    beanFactory.registerBeanDefinition("getTestAlgorithm", MyAlgorithmConfiguration__TestContext001_BeanDefinitions.getGetTestAlgorithmBeanDefinition());
     beanFactory.registerBeanDefinition("getTestAlgorithm", MyAlgorithmConfiguration__TestContext001_BeanDefinitions.getGetTestAlgorithmBeanDefinition());
     beanFactory.registerBeanDefinition("corsFilter", MyCorsConfiguration__TestContext001_BeanDefinitions.getCorsFilterBeanDefinition());
     beanFactory.registerBeanDefinition("org.springframework.boot.autoconfigure.AutoConfigurationPackages", AutoConfigurationPackages__TestContext001_BeanDefinitions.BasePackages__BeanDefinitions.getAutoConfigurationPackagesBeanDefinition());
@@ -243,14 +243,14 @@ public class Ex32BackApplicationTests__TestContext001_BeanFactoryRegistrations {
     beanFactory.registerBeanDefinition("org.springframework.data.jpa.util.JpaMetamodelCacheCleanup", JpaMetamodelCacheCleanup__TestContext001_BeanDefinitions.getJpaMetamodelCacheCleanupBeanDefinition());
     beanFactory.registerBeanDefinition("org.springframework.data.jpa.repository.support.JpaEvaluationContextExtension", JpaEvaluationContextExtension__TestContext001_BeanDefinitions.getJpaEvaluationContextExtensionBeanDefinition());
     beanFactory.registerBeanDefinition("jpa.named-queries#0", PropertiesBasedNamedQueries__TestContext001_BeanDefinitions.getNamedqueriesBeanDefinition());
-    beanFactory.registerBeanDefinition("jpa.WorkerRepository.fragments#0", RepositoryComposition__TestContext001_BeanDefinitions.RepositoryFragments__BeanDefinitions.getFragmentsBeanDefinition());
-    beanFactory.registerBeanDefinition("workerRepository", WorkerRepository__TestContext001_BeanDefinitions.getWorkerRepositoryBeanDefinition());
-    beanFactory.registerBeanDefinition("jpa.named-queries#1", PropertiesBasedNamedQueries__TestContext001_BeanDefinitions.getNamedqueriesBeanDefinition1());
-    beanFactory.registerBeanDefinition("jpa.ActorRepository.fragments#0", RepositoryComposition__TestContext001_BeanDefinitions.RepositoryFragments__BeanDefinitions.getFragmentsBeanDefinition1());
-    beanFactory.registerBeanDefinition("actorRepository", ActorRepository__TestContext001_BeanDefinitions.getActorRepositoryBeanDefinition());
-    beanFactory.registerBeanDefinition("jpa.named-queries#2", PropertiesBasedNamedQueries__TestContext001_BeanDefinitions.getNamedqueriesBeanDefinition2());
-    beanFactory.registerBeanDefinition("jpa.MovieRepository.fragments#0", RepositoryComposition__TestContext001_BeanDefinitions.RepositoryFragments__BeanDefinitions.getFragmentsBeanDefinition2());
+    beanFactory.registerBeanDefinition("jpa.MovieRepository.fragments#0", RepositoryComposition__TestContext001_BeanDefinitions.RepositoryFragments__BeanDefinitions.getFragmentsBeanDefinition());
     beanFactory.registerBeanDefinition("movieRepository", MovieRepository__TestContext001_BeanDefinitions.getMovieRepositoryBeanDefinition());
+    beanFactory.registerBeanDefinition("jpa.named-queries#1", PropertiesBasedNamedQueries__TestContext001_BeanDefinitions.getNamedqueriesBeanDefinition1());
+    beanFactory.registerBeanDefinition("jpa.WorkerRepository.fragments#0", RepositoryComposition__TestContext001_BeanDefinitions.RepositoryFragments__BeanDefinitions.getFragmentsBeanDefinition1());
+    beanFactory.registerBeanDefinition("workerRepository", WorkerRepository__TestContext001_BeanDefinitions.getWorkerRepositoryBeanDefinition());
+    beanFactory.registerBeanDefinition("jpa.named-queries#2", PropertiesBasedNamedQueries__TestContext001_BeanDefinitions.getNamedqueriesBeanDefinition2());
+    beanFactory.registerBeanDefinition("jpa.ActorRepository.fragments#0", RepositoryComposition__TestContext001_BeanDefinitions.RepositoryFragments__BeanDefinitions.getFragmentsBeanDefinition2());
+    beanFactory.registerBeanDefinition("actorRepository", ActorRepository__TestContext001_BeanDefinitions.getActorRepositoryBeanDefinition());
     beanFactory.registerBeanDefinition("jpa.named-queries#3", PropertiesBasedNamedQueries__TestContext001_BeanDefinitions.getNamedqueriesBeanDefinition3());
     beanFactory.registerBeanDefinition("jpa.UserRepository.fragments#0", RepositoryComposition__TestContext001_BeanDefinitions.RepositoryFragments__BeanDefinitions.getFragmentsBeanDefinition3());
     beanFactory.registerBeanDefinition("userRepository", UserRepository__TestContext001_BeanDefinitions.getUserRepositoryBeanDefinition());

@@ -16,7 +16,7 @@ class MySecurity {
 
         val calendar = Calendar.getInstance()
         val currentTime = calendar.time
-        calendar.add(Calendar.SECOND, 1) // 设置1小时后过期
+        calendar.add(Calendar.HOUR, 1) // 设置1小时后过期
         val expirationTime = calendar.time
 
         return JWT.create()
