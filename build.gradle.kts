@@ -24,12 +24,15 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
     // h2
     implementation("com.h2database:h2")
 
     // mysql
     implementation("mysql:mysql-connector-java:8.0.32")
 
+    // https://mvnrepository.com/artifact/com.auth0/java-jwt
+    implementation("com.auth0:java-jwt:4.3.0")
 
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -43,7 +46,7 @@ dependencies {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
+//        freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "17"
     }
 }
