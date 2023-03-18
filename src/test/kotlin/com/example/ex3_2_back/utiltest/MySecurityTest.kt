@@ -27,4 +27,10 @@ class MySecurityTest {
         sleep(1000)
         assert(mySecurity.decToken(token).isEmpty)
     }
+
+    @Test
+    fun testGenToken() {
+        println("testGenToken")
+        println(mySecurity.genTestToken(user, Int.MAX_VALUE))
+    }
 }

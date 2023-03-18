@@ -67,6 +67,7 @@ public class AuthController {
         if (optionalUser.isEmpty()) {
             return new Result(false,"token无效");
         }
+
         return new Result (true,"token有效");
     }
 }
