@@ -5,4 +5,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan("com.example.ex3_2_back.algorithm")
-public class MyAlgorithmConfiguration{}
+public class MyAlgorithmConfiguration{
+
+}
