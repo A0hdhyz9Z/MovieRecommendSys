@@ -4,6 +4,7 @@ import com.example.ex3_2_back.data.DataResult;
 import com.example.ex3_2_back.data.Result;
 import com.example.ex3_2_back.entity.User;
 import com.example.ex3_2_back.repositry.UserRepository;
+import com.example.ex3_2_back.util.MySecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,13 @@ public class AuthController {
 
     UserRepository userRepository;
 
+    @Autowired
+    public void setMySecurity(MySecurity mySecurity) {
+        this.mySecurity = mySecurity;
+    }
+
+    MySecurity mySecurity;
+
     @PostMapping("/register")
     Result register(@RequestBody User user) {
 
@@ -36,27 +44,6 @@ public class AuthController {
 
     }
 
-    @PostMapping("/login")
-    DataResult<String> login(@RequestBody User user) {
-
-        Optional<User> optUserInDB = userRepository.findById(user.getId());
-
-        if (optUserInDB.isEmpty()) {
-            return new DataResult<>(false, "该用户不存在", "");
-        }
-
-        User userInDB = optUserInDB.get();
-
-        if (!userInDB.getPassword().equals(user.getPassword())) {
-            return new DataResult<>(false, "密码错误", "");
-        }
-
-        // 数据库session逻辑
-
-        return new DataResult<>(true, "登陆成功", "Token?");
-
-    }
-
     @PostMapping("/login2")
     DataResult<String> login2(@RequestBody User user) {
 
@@ -68,7 +55,20 @@ public class AuthController {
 
         // 数据库session逻辑
 
-        return new DataResult<>(true, "登陆成功", "Token?");
+        return new DataResult<>(true, "登陆成功", mySecurity.genToken(user));
+
+    }
+
+    @PostMapping("/isTokenValid")
+    Result testToken(@RequestBody String token) {
+
+        Optional<User> optionalUser = mySecurity.decToken(token);
+
+        if (optionalUser.isEmpty()) {
+            return new Result(false,"token无效");
+        }
+
+
 
     }
 }
