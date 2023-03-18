@@ -23,6 +23,6 @@ class MySecurityTest {
     @Test
     fun testUnexpired() {
         val token = mySecurity.genTestToken(user, 1)
-        assert(mySecurity.decToken(token).isPresent)
+        assert(mySecurity.decToken(token).isEmpty)
     }
 }
