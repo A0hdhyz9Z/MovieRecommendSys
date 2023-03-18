@@ -11,8 +11,4 @@ class User(
     var password: String = "",
     @Transient
     var token: String = "",
-    @Transient
-    var isLogin: Boolean = false,
-    @Transient
-    var requestTime: Boolean = false
 )
