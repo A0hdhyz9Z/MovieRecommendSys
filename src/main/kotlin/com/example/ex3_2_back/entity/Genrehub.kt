@@ -1,5 +1,6 @@
 package com.example.ex3_2_back.entity
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
@@ -8,6 +9,8 @@ import jakarta.persistence.Table
 @Table(name = "genrehub")
 class Genrehub (
     @Id
-    var genre_id: Int=0 ,
-    var genre_name:String="",
+    @Column(name = "genre_id")
+    var id: Int=0 ,
+    @Column(name = "genre_name")
+    var name:String="",
 )
