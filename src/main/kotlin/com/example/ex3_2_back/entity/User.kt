@@ -15,4 +15,5 @@ class User(
     var gender: Gender = Gender.Unknown,
     @Transient
     var token: String = "",
+
 )
