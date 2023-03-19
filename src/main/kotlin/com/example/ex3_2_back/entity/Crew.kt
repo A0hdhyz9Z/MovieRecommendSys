@@ -1,22 +1,20 @@
 package com.example.ex3_2_back.entity
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.OneToOne
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "crew")
-class Crew (
+class Crew(
     @Id
-    var id: Int=0 ,
-
+    @Column(name = "crew_id")
+    var id: Int = 0,
     @OneToOne
+    @JoinColumn(name = "worker_id")
     var worker: Worker = Worker(),
     @OneToOne
+    @JoinColumn(name = "movie_id")
     var movie: Movie = Movie(),
-
-    var department:String="",
-    var job:String="",
-    var profilePath:String="",
+    var department: String = "",
+    var job: String = "",
+    var profilePath: String = "",
 )

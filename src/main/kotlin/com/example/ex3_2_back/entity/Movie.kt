@@ -7,7 +7,7 @@ import jakarta.persistence.Table
 import java.math.BigInteger
 
 @Entity
-@Table(name = "movies")
+@Table(name = "movie")
 class Movie (
     @Id
     @Column(name = "movie_id")

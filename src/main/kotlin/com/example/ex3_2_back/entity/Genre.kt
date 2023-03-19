@@ -4,11 +4,14 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "genre")
-class Genre (
+class Genre(
     @Id
-    var id: Int=0 ,
+    @Column(name = "genre_id")
+    var id: Int = 0,
     @OneToOne
-    var genre: Genrehub = Genrehub(),
+    @JoinColumn(name = "genre_hub_id")
+    var genreHub: GenreHub = GenreHub(),
     @OneToOne
+    @JoinColumn(name = "movie_id")
     var movie: Movie = Movie(),
 )

@@ -1,19 +1,24 @@
 package com.example.ex3_2_back.entity
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.ForeignKey
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 
 @Entity
 @Table(name = "rate")
-class Rate (
+class Rate(
     @Id
-    var id:Int=0,
+    @Column(name = "rate_id")
+    var id: Int = 0,
     @OneToOne
-    var movie:Movie=Movie(),
+    @JoinColumn(name = "movie_id")
+    var movie: Movie = Movie(),
     @OneToOne
-    var user:User=User(),
-    var rating:Float=0.0f,
-
+    @JoinColumn(name = "user_id")
+    var user: User = User(),
+    var rating: Float = 0.0f,
 )

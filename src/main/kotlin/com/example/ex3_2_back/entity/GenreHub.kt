@@ -6,11 +6,10 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = "taghub")
-class Taghub (
+@Table(name = "genre_hub")
+class GenreHub(
     @Id
-    @Column(name = "keyword_id")
-    var id: Int=0 ,
-    @Column(name = "keyword_name")
-    var name:String="",
+    @Column(name = "genre_hub_id")
+    var id: Int = 0,
+    var name: String = "",
 )
