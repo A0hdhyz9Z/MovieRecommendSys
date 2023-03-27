@@ -1,10 +1,10 @@
 package com.example.ex3_2_back.controller;
 
-import com.example.ex3_2_back.data.DataResult;
+
 import com.example.ex3_2_back.data.Result;
 import com.example.ex3_2_back.entity.User;
-import com.example.ex3_2_back.repositry.UserRepository;
-import com.example.ex3_2_back.util.MySecurity;
+import com.example.ex3_2_back.repository.UserRepository;
+import com.example.ex3_2_back.security.MySecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,17 +45,17 @@ public class AuthController {
     }
 
     @PostMapping("/v2login")
-    DataResult<String>login(@RequestBody User user) {
+    Result<String>login(@RequestBody User user) {
 
         Optional<User> optUserInDB = userRepository.findByIdAndName(user.getId(),user.getName());
 
         if (optUserInDB.isEmpty()) {
-            return new DataResult<>(false, "Id或者密码错误", "");
+            return new Result<>(false, "Id或者密码错误", "");
         }
 
         // 数据库session逻辑
 
-        return new DataResult<>(true, "登陆成功", mySecurity.genToken(user));
+        return new Result<>(true, "登陆成功", mySecurity.genToken(user));
 
     }
 

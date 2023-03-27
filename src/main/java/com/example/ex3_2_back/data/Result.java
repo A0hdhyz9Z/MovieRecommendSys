@@ -11,4 +11,8 @@ public class Result<Data> {
     boolean success;
     String message;
     Data data;
+
+    public Result(boolean b, String message) {
+        this(b, message, null);
+    }
 }
