@@ -1,16 +1,6 @@
 package com.example.ex3_2_back.controller;
 
-import com.example.ex3_2_back.data.DataResult;
-import com.example.ex3_2_back.data.Result;
-import com.example.ex3_2_back.entity.Movie;
-import com.example.ex3_2_back.entity.User;
-import com.example.ex3_2_back.repositry.MovieRepository;
-import com.example.ex3_2_back.repositry.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 
 @Controller
