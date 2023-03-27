@@ -1,4 +1,4 @@
-package com.example.ex3_2_back.entity.util;
+package com.example.ex3_2_back.entity;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
