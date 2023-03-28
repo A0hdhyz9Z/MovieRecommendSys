@@ -9,5 +9,5 @@ type Query {
 type User {
     id: ID!
     name: String
-    gender: Int
+    gender: String
 }

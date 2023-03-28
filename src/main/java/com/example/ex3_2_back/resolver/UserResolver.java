@@ -12,7 +12,8 @@ public class UserResolver implements GraphQLQueryResolver {
 
     @SuppressWarnings("all")
     public User getUserById(int id) {
-        return userRepository.findById(id).get();
+        var optUser = userRepository.findById(id);
+        return optUser.isPresent() ? optUser.get() : new User();
     }
 
     @Autowired
