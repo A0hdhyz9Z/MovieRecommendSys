@@ -1,4 +1,4 @@
-package com.example.ex3_2_back.config;
+package com.example.ex3_2_back.controller;
 
 import com.example.ex3_2_back.data.Result;
 import com.example.ex3_2_back.entity.Movie;
