@@ -28,7 +28,7 @@ public class MovieController {
     MovieRepository movieRepository;
 
     @PostMapping
-    Result<?> saveMovie(Movie movie) {
+    Result<?> saveMovie(@RequestBody Movie movie) {
 
         if (movie.getId() < 0) {
             return new Result<>(false, "No Id");
@@ -41,7 +41,7 @@ public class MovieController {
     }
 
     @DeleteMapping
-    Result<?> deleteMovie(Movie movie) {
+    Result<?> deleteMovie(@RequestBody Movie movie) {
         if (!movieRepository.existsById(movie.getId())) {
             return new Result<>(false, "No Such Id");
         }
@@ -52,7 +52,7 @@ public class MovieController {
     }
 
     @GetMapping
-    Result<Movie> findMovie(Movie movie) {
+    Result<Movie> findMovie(@RequestBody Movie movie) {
 
         Integer movieId = movie.getId();
 

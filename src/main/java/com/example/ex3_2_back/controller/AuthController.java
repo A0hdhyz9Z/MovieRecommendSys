@@ -45,9 +45,9 @@ public class AuthController {
     }
 
     @PostMapping("/v2login")
-    Result<String>login(@RequestBody User user) {
+    Result<String> login(@RequestBody User user) {
 
-        Optional<User> optUserInDB = userRepository.findByIdAndName(user.getId(),user.getName());
+        Optional<User> optUserInDB = userRepository.findByIdAndName(user.getId(), user.getName());
 
         if (optUserInDB.isEmpty()) {
             return new Result<>(false, "Id或者密码错误", "");
@@ -65,9 +65,9 @@ public class AuthController {
         Optional<User> optionalUser = mySecurity.decToken(token);
 
         if (optionalUser.isEmpty()) {
-            return new Result(false,"token无效");
+            return new Result(false, "token无效");
         }
 
-        return new Result (true,"token有效");
+        return new Result(true, "token有效");
     }
 }

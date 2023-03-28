@@ -13,5 +13,5 @@ import lombok.*;
 public class Collection {
     @Id
     @Column(name = "collection_id")
-    int id = 0;
+    Integer id;
 }

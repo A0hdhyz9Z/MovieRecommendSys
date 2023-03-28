@@ -13,7 +13,7 @@ import lombok.*;
 public class TagHub {
     @Id
     @Column(name = "keyword_id")
-    int id = 0;
+    Integer id;
     @Column(name = "keyword_name")
-    String name = "";
+    String name;
 }

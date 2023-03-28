@@ -13,10 +13,10 @@ import lombok.*;
 public class User {
     @Id
     @Column(name = "user_id")
-    int id = 0;
-    String name = "";
-    String password = "";
+    Integer id;
+    String name;
+    String password;
     Gender gender = Gender.Unknown;
     @Transient
-    String token = "";
+    String token;
 }

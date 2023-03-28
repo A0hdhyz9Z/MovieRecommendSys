@@ -14,6 +14,6 @@ import lombok.*;
 public class GenreHub {
     @Id
     @Column(name = "genre_hub_id")
-    int id = 0;
-    String name = "";
+    Integer id;
+    String name ;
 }

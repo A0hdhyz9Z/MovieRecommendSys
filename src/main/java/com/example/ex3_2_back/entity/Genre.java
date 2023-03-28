@@ -14,12 +14,12 @@ import lombok.*;
 public class Genre {
     @Id
     @Column(name = "genre_id")
-    int id = 0;
+    Integer id;
     @OneToOne
     @JoinColumn(name = "genre_hub_id")
-    GenreHub genreHub = new GenreHub();
+    GenreHub genreHub;
 
     @OneToOne
     @JoinColumn(name = "movie_id")
-    Movie movie = new Movie();
+    Movie movie;
 }

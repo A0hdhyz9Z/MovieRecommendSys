@@ -14,6 +14,6 @@ import lombok.*;
 public class Actor {
     @Id
     @Column(name = "actor_id")
-    int id = 0;
+    Integer id;
     Gender gender = Gender.Unknown;
 }

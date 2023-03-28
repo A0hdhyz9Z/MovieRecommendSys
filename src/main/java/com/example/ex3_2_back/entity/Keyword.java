@@ -14,12 +14,12 @@ import lombok.*;
 public class Keyword {
     @Id
     @Column(name = "keyword_id")
-    int id = 0;
+    Integer id;
     @OneToOne
     @JoinColumn(name = "tag_hub_id")
-    TagHub tagHub = new TagHub();
+    TagHub tagHub;
 
     @OneToOne
     @JoinColumn(name = "movie_id")
-    Movie movie = new Movie();
+    Movie movie;
 }

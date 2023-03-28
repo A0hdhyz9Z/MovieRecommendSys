@@ -14,9 +14,9 @@ import lombok.*;
 public class Movie {
     @Id
     @Column(name = "movie_id")
-    int id = -1;
+    Integer id;
     Boolean adult = false;
-    int budget = -1;
+    Integer budget;
     String homepage = "";
     @Column(name = "original_language")
     String originalLanguage = "";
@@ -27,15 +27,15 @@ public class Movie {
     String posterPath = "";
     @Column(name = "release_date")
     String releaseDate = "";
-    int revenue = 0;
-    int runtime = 0;
-    String status = "";
-    String tagline = "";
-    String title = "";
+    Integer revenue;
+    Integer runtime;
+    String status;
+    String tagline;
+    String title;
     @Column(name = "vote_average")
-    Float voteAverage = 0.0f;
+    Float voteAverage;
     @Column(name = "vote_count")
-    int voteCount = 0;
-    String overview = "";
+    Integer voteCount;
+    String overview;
 }
 

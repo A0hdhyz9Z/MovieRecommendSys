@@ -13,6 +13,6 @@ import lombok.*;
 public class Worker {
     @Id
     @Column(name = "worker_id")
-    int id = 0;
+    Integer id;
     Gender gender = Gender.Unknown;
 }

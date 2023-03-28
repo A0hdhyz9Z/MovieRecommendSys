@@ -13,17 +13,17 @@ import lombok.*;
 public class Cast {
     @Id
     @Column(name = "cast_id")
-    int id = 0;
+    Integer id;
     @Column(name = "cast_order")
-    int order = 0;
+    Integer order;
     @OneToOne
     @JoinColumn(name = "actor_id")
-    Actor actor = new Actor();
+    Actor actor;
     @OneToOne
     @JoinColumn(name = "movie_id")
-    Movie movie = new Movie();
+    Movie movie;
     @Column(name = "cast_character")
-    String character = "";
+    String character;
     @Column(name = "profile_path")
-    String profilePath = "";
+    String profilePath;
 }
