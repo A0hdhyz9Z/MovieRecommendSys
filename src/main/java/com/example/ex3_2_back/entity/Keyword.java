@@ -2,9 +2,15 @@ package com.example.ex3_2_back.entity;
 
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "keyword")
+@Builder
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Keyword {
     @Id
     @Column(name = "keyword_id")

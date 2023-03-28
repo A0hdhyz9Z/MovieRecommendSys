@@ -1,9 +1,15 @@
 package com.example.ex3_2_back.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "rate")
+@Builder
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Rate {
     @Id
     @Column(name = "rate_id")

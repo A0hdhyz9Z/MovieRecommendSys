@@ -2,15 +2,13 @@ package com.example.ex3_2_back.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "movie")
 @Builder
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Movie {
