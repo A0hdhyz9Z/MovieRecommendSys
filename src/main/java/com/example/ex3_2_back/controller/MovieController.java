@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/movie")
 public class MovieController {
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -26,15 +27,8 @@ public class MovieController {
 
     MovieRepository movieRepository;
 
-    @RequestMapping("/message")
-    @ResponseBody
-    String getGreetingMessage() {
-        return "Hello, this is Spring!";
-    }
-
-    @PostMapping("/addmovie")
-    @ResponseBody
-    Result<?> a(Movie movie) {
+    @PostMapping
+    Result<?> saveMovie(Movie movie) {
 
         if (movie.getId() < 0) {
             return new Result<>(false, "No Id");
@@ -46,9 +40,21 @@ public class MovieController {
 
     }
 
-    @GetMapping("/getmovie")
-    @ResponseBody
-    Result<Movie> a(Integer movieId) {
+    @DeleteMapping
+    Result<?> deleteMovie(Movie movie) {
+        if (!movieRepository.existsById(movie.getId())) {
+            return new Result<>(false, "No Such Id");
+        }
+
+        movieRepository.deleteById(movie.getId());
+
+        return new Result<>(true, "添加电影成功");
+    }
+
+    @GetMapping
+    Result<Movie> findMovie(Movie movie) {
+
+        Integer movieId = movie.getId();
 
         if (movieId == null) {
             return new Result<>(false, "No Id", new Movie());
@@ -60,9 +66,7 @@ public class MovieController {
             return new Result<>(false, "没有这个电影", new Movie());
         }
 
-        Movie movie = byId.get();
-
-        return new Result<>(true, "查询成功", movie);
+        return new Result<>(true, "查询成功", byId.get());
 
     }
 }

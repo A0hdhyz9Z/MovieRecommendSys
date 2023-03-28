@@ -14,9 +14,9 @@ import lombok.*;
 public class Movie {
     @Id
     @Column(name = "movie_id")
-    int id = 0;
+    int id = -1;
     Boolean adult = false;
-    int budget = 0;
+    int budget = -1;
     String homepage = "";
     @Column(name = "original_language")
     String originalLanguage = "";

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "cast")
+@Table(name = "t_cast")
 @Builder
 @Setter
 @Getter
