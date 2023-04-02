@@ -1,11 +1,14 @@
 package com.example.ex3_2_back.controller;
 
-import com.example.ex3_2_back.data.DataResult;
+
 import com.example.ex3_2_back.data.Result;
 import com.example.ex3_2_back.entity.User;
-import com.example.ex3_2_back.repositry.UserRepository;
-import com.example.ex3_2_back.util.MySecurity;
+import com.example.ex3_2_back.repository.UserRepository;
+import com.example.ex3_2_back.security.MySecurity;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,32 +33,40 @@ public class AuthController {
     MySecurity mySecurity;
 
     @PostMapping("/register")
-    Result register(@RequestBody User user) {
+    Result<?> register(@RequestBody User user) {
 
         Optional<User> optUserInDB = userRepository.findById(user.getId());
 
         if (optUserInDB.isPresent()) {
-            return new Result(false, "该用户已存在");
+            return new Result<>(false, "该用户已存在");
         }
 
         userRepository.save(user);
 
-        return new Result(true, "注册成功");
+        return new Result<>(true, "注册成功");
 
     }
 
-    @PostMapping("/v2login")
-    DataResult<String>login(@RequestBody User user) {
 
-        Optional<User> optUserInDB = userRepository.findByIdAndName(user.getId(),user.getName());
+
+    @PostMapping("/login")
+    Result<String> login(@RequestBody User user, HttpServletResponse response) {
+
+        Optional<User> optUserInDB = userRepository.findByIdAndName(user.getId(), user.getName());
 
         if (optUserInDB.isEmpty()) {
-            return new DataResult<>(false, "Id或者密码错误", "");
+            return new Result<>(false, "Id或者密码错误", "");
         }
 
         // 数据库session逻辑
 
-        return new DataResult<>(true, "登陆成功", mySecurity.genToken(user));
+        String newToken = mySecurity.genToken(new User());
+        var tokenCookie = new Cookie("token", newToken);
+        tokenCookie.setMaxAge(36000);
+        response.addCookie(tokenCookie);
+        response.addHeader("Access-Control-Allow-Credentials", String.valueOf(true));
+
+        return new Result<>(true, "登陆成功", mySecurity.genToken(user));
 
     }
 
@@ -65,9 +76,9 @@ public class AuthController {
         Optional<User> optionalUser = mySecurity.decToken(token);
 
         if (optionalUser.isEmpty()) {
-            return new Result(false,"token无效");
+            return new Result(false, "token无效");
         }
 
-        return new Result (true,"token有效");
+        return new Result(true, "token有效");
     }
 }
