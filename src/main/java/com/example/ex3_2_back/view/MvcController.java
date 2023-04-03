@@ -54,6 +54,11 @@ public class MvcController {
         return "login";
     }
 
+    @GetMapping("/shipment")
+    public String getShipmentPage(Model model) {
+        return "shipment";
+    }
+
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         return "register";
@@ -71,7 +76,7 @@ public class MvcController {
 
             model.addAttribute("loginMessage", "登录成功");
 
-            return "login";
+            return "redirect:/test/shipment";
         } else {
             model.addAttribute("loginMessage", "登录失败");
             return "login";

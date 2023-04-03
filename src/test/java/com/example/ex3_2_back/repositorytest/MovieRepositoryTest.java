@@ -25,15 +25,21 @@ public class MovieRepositoryTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        for (int i = 0; i < 100; i++) {
-            movieRepository.save(Movie.builder().id(i).voteAverage(Float.valueOf(i)).build());
-        }
+//        for (int i = 0; i < 100; i++) {
+//            movieRepository.save(Movie.builder().id(i).voteAverage(Float.valueOf(i)).build());
+//        }
     }
 
     @Test
     public void testFindByOrderByVoteAverage() {
         List<Movie> movies = movieRepository.findByOrderByVoteAverage(PageRequest.of(0, 10));
         System.out.println(Arrays.deepToString(movies.toArray()));
+    }
+
+    @Test
+    public void testFindBy(){
+        var m=movieRepository.myFind();
+        System.out.println(Arrays.deepToString(m.toArray()));
     }
 
 }

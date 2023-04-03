@@ -88,9 +88,9 @@
     <ul class="movie-list">
         <li class="movie-item" th:each="movie : ${movies}">
             <a th:href="@{/test/movies}">
-                <div class="movie-image" th:style="'background-image: url(\'' + ${movie.image} + '\')'"></div>
+                <div class="movie-image" th:style="'background-image: url(\'' + ${movie.originalLanguage} + '\')'"></div>
                 <div class="movie-title" th:text="${movie.title}"></div>
-                <div class="movie-description" th:text="${movie.description}"></div>
+                <div class="movie-description" th:text="${movie.originalTitle}"></div>
             </a>
         </li>
     </ul>
@@ -99,9 +99,9 @@
     <ul class="movie-list">
         <li class="movie-item" th:each="movie : ${newMovies}">
             <a th:href="@{/test/movies/{id}(id=${movie.id})}">
-                <div class="movie-image" th:style="'background-image: url(\'' + ${movie.image} + '\')'"></div>
+                <div class="movie-image" th:style="'background-image: url(\'' + ${movie.originalLanguage} + '\')'"></div>
                 <div class="movie-title" th:text="${movie.title}"></div>
-                <div class="movie-description" th:text="${movie.description}"></div>
+                <div class="movie-description" th:text="${movie.originalLanguage}"></div>
             </a>
         </li>
     </ul>
