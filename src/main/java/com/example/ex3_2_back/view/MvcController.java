@@ -9,6 +9,7 @@ import com.example.ex3_2_back.repository.UserRepository;
 import com.example.ex3_2_back.security.MySecurity;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/test")
+@Slf4j
 public class MvcController {
     MySecurity mySecurity;
 
@@ -77,6 +79,7 @@ public class MvcController {
 
     @GetMapping("/image")
     public String getImagesPage(Model model) {
+        model.addAttribute("imageUploadMessage", "欢迎");
         return "image";
     }
 
@@ -126,26 +129,39 @@ public class MvcController {
 
 
     @PostMapping("/image")
-    public String uploadImage(@RequestParam("file") MultipartFile file) {
+    public String uploadImage(Model model, @RequestParam("file") MultipartFile file) throws Exception {
+
+        // 将 MultipartFile 转换为字节数组
+        byte[] data;
+
         try {
-            // 将 MultipartFile 转换为字节数组
-            byte[] data = file.getBytes();
-
-            // 创建 Image 对象
-            Image image = new Image();
-            image.setName(file.getOriginalFilename());
-            image.setData(data);
-            image.setType(file.getContentType());
-
-            // 将 Image 对象保存到数据库中
-            imageRepository.save(image);
-        } catch (IOException e) {
-            // 处理异常
-            e.printStackTrace();
+            data = file.getBytes();
+        } catch (Exception e) {
+            var imageUploadMessage = "读取文件发生异常";
+            model.addAttribute("imageUploadMessage", imageUploadMessage);
+            log.info(imageUploadMessage);
+            return "/image";
         }
 
-        // 重定向到图片列表页面
-        return "redirect:/images";
+        if (data.length > 8 * 1024) {
+            var imageUploadMessage = "图片尺寸过大";
+            model.addAttribute("imageUploadMessage", imageUploadMessage);
+            log.info(imageUploadMessage);
+            return "/image";
+        }
+
+        // 创建 Image 对象
+        Image image = new Image();
+        image.setName(file.getOriginalFilename());
+        image.setData(data);
+        image.setType(file.getContentType());
+
+        // 将 Image 对象保存到数据库中
+        imageRepository.save(image);
+
+
+        model.addAttribute("imageUploadMessage", "上传成功");
+        return "/image";
     }
 
 }

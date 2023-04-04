@@ -3,7 +3,8 @@ server:
 
 spring:
   datasource:
-    url: jdbc:h2:mem:test
+#    url: jdbc:h2:mem:test
+    url: jdbc:h2:file:./test
     driver-class-name: org.h2.Driver
 
   sql:
@@ -20,19 +21,6 @@ spring:
     console:
       enabled: true
 
-
-#server:
-#  port: 9090
-#
-#spring:
-#  jpa:
-#    database: mysql
-#    hibernate:
-#      ddl-auto: create
-#    database-platform:
-#  datasource:
-#    url: jdbc:mysql://bj-cynosdbmysql-grp-og8zp5ro.sql.tencentcdb.com:26956/software_testing
-#    name: movie_share
-#    password: Movie123456
-#    username: movie_share
+data:
+  auto-init: true
 
