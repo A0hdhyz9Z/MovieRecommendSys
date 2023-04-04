@@ -1,8 +1,6 @@
 spring:
   profiles:
-    active: h2dev
-
-
+    active: mysqldev
 
 graphql:
   servlet:

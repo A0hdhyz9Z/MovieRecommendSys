@@ -1,7 +1,9 @@
 package com.example.ex3_2_back.view;
 
+import com.example.ex3_2_back.entity.Image;
 import com.example.ex3_2_back.entity.Movie;
 import com.example.ex3_2_back.entity.User;
+import com.example.ex3_2_back.repository.ImageRepository;
 import com.example.ex3_2_back.repository.MovieRepository;
 import com.example.ex3_2_back.repository.UserRepository;
 import com.example.ex3_2_back.security.MySecurity;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -27,6 +31,13 @@ public class MvcController {
     UserRepository userRepository;
 
     MovieRepository movieRepository;
+
+    ImageRepository imageRepository;
+
+    @Autowired
+    public void setImageRepository(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
 
     @Autowired
     public void setMovieRepository(MovieRepository movieRepository) {
@@ -62,6 +73,11 @@ public class MvcController {
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         return "register";
+    }
+
+    @GetMapping("/image")
+    public String getImagesPage(Model model) {
+        return "image";
     }
 
     @PostMapping("/login")
@@ -107,4 +123,29 @@ public class MvcController {
         model.addAttribute("newMovies", newMovies);
         return "home";
     }
+
+
+    @PostMapping("/image")
+    public String uploadImage(@RequestParam("file") MultipartFile file) {
+        try {
+            // 将 MultipartFile 转换为字节数组
+            byte[] data = file.getBytes();
+
+            // 创建 Image 对象
+            Image image = new Image();
+            image.setName(file.getOriginalFilename());
+            image.setData(data);
+            image.setType(file.getContentType());
+
+            // 将 Image 对象保存到数据库中
+            imageRepository.save(image);
+        } catch (IOException e) {
+            // 处理异常
+            e.printStackTrace();
+        }
+
+        // 重定向到图片列表页面
+        return "redirect:/images";
+    }
+
 }
