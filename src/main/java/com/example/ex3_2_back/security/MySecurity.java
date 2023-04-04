@@ -13,35 +13,11 @@ public class MySecurity {
     final Algorithm algorithm = Algorithm.HMAC256("movie");
 
     public String genToken(User user) {
-
-        var calendar = Calendar.getInstance();
-        var currentTime = calendar.getTime();
-        calendar.add(Calendar.HOUR, 1); // 设置1小时后过期
-        var expirationTime = calendar.getTime();
-
-        return JWT.create()
-                .withSubject("authentication")
-                .withIssuer("your_issuer")
-                .withClaim("id", user.getId())
-                .withIssuedAt(currentTime)
-                .withExpiresAt(expirationTime)
-                .sign(algorithm);
+        return genExpiredToken(user, 60 * 1000);
     }
 
     public String genExpiredToken(User user, int millis) {
-
-        var calendar = Calendar.getInstance();
-        var currentTime = calendar.getTime();
-        calendar.add(Calendar.MILLISECOND, millis); // 设置1小时后过期
-        var expirationTime = calendar.getTime();
-
-        return JWT.create()
-                .withSubject("authentication")
-                .withIssuer("your_issuer")
-                .withClaim("id", user.getId())
-                .withIssuedAt(currentTime)
-                .withExpiresAt(expirationTime)
-                .sign(algorithm);
+        return genExpiredToken(user, Calendar.MILLISECOND, millis);
     }
 
     public Optional<User> decToken(String token) {
@@ -53,5 +29,20 @@ public class MySecurity {
         } catch (Exception e) {
             return Optional.empty();
         }
+    }
+
+    public String genExpiredToken(User user, int calendarField, int amount) {
+        var calendar = Calendar.getInstance();
+        var currentTime = calendar.getTime();
+        calendar.add(calendarField, amount);
+        var expirationTime = calendar.getTime();
+
+        return JWT.create()
+                .withSubject("authentication")
+                .withIssuer("your_issuer")
+                .withClaim("id", user.getId())
+                .withIssuedAt(currentTime)
+                .withExpiresAt(expirationTime)
+                .sign(algorithm);
     }
 }
