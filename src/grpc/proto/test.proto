@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package com.example.grpc;
+
+option java_package = "com.example.ex3_2_back.algorithm.rpc";
+option java_outer_classname = "AlgorithmServiceProto";
+
+service AlgorithmService {
+  rpc RunAlgorithm(AlgorithmRequest) returns (AlgorithmResponse) {}
+}
+
+message AlgorithmRequest {
+  string input = 1;
+}
+
+message AlgorithmResponse {
+  string output = 1;
+}
