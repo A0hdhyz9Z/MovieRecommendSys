@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -89,6 +90,7 @@ public class MvcController {
         if (userRepository.existsByNameAndPassword(username, password)) {
             String newToken = mySecurity.genToken(new User());
             var tokenCookie = new Cookie("token", newToken);
+            tokenCookie.setAttribute("time", Calendar.getInstance().getTime().toString());
             tokenCookie.setMaxAge(36000);
             response.addCookie(tokenCookie);
             response.addHeader("Access-Control-Allow-Credentials", String.valueOf(true));
