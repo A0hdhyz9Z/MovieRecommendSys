@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Calendar;
+
 @SpringBootTest
 @Slf4j
 public class SecurityTest {
@@ -20,5 +22,11 @@ public class SecurityTest {
     @Test
     void testSecurity() {
         log.info(mySecurity.genToken(new User()));
+    }
+
+    @Test
+    void testGenToken() {
+        var token = mySecurity.genExpiredToken(User.builder().id(1).build(), Calendar.YEAR, 100);
+        log.info(token);
     }
 }
