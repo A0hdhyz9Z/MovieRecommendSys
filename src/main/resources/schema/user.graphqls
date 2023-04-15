@@ -4,10 +4,17 @@ schema {
 
 type Query {
     getUserById(id:Int):User
+    getMovieById(id:Int):Movie
 }
 
 type User {
     id: ID!
     name: String
     gender: String
+}
+
+type Movie {
+    id:ID!
+    name: String
+    rating: Float
 }
