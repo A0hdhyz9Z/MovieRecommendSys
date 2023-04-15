@@ -15,6 +15,5 @@ type User {
 
 type Movie {
     id:ID!
-    name: String
-    rating: Float
+    title: String
 }
