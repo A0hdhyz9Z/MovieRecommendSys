@@ -9,10 +9,19 @@ service AlgorithmService {
   rpc RunAlgorithm(AlgorithmRequest) returns (AlgorithmResponse) {}
 }
 
+message RatingItem {
+  string type = 1;
+  uint32 value = 2;
+}
+
+message Movie {
+  int32 id = 1;
+}
+
 message AlgorithmRequest {
-  string input = 1;
+  repeated RatingItem ratings = 1;
 }
 
 message AlgorithmResponse {
-  string output = 1;
+  repeated  Movie movies = 1;
 }
