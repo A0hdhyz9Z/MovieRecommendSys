@@ -79,7 +79,7 @@ export default {
     },
     methods: {
         handleLogin() {
-          this.$router.push('/Order')
+          this.$router.push('/movie')
             /*this.$refs.loginForm.validate((valid) => {
                 const user = {
                     username: this.loginForm.username,
