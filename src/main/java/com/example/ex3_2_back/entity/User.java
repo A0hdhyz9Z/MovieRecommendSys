@@ -9,12 +9,14 @@ import lombok.*;
 @Setter
 @Getter
 @AllArgsConstructor
+@ToString
 @NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     Integer id;
+//    @Column(unique = true)
     String name;
     String password;
     Gender gender = Gender.Unknown;

@@ -26,7 +26,7 @@ public class Result {
     }
 
     public static Result success() {
-        return Result.builder().success(true).build();
+        return Result.builder().success(true).message("success").build();
     }
 
     public static Result success(Object data) {

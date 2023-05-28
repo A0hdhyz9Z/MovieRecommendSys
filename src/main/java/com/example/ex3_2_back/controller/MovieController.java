@@ -5,6 +5,7 @@ import com.example.ex3_2_back.entity.Movie;
 import com.example.ex3_2_back.repository.MovieRepository;
 import com.example.ex3_2_back.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,11 +63,16 @@ public class MovieController {
 
         Optional<Movie> byId = movieRepository.findById(movieId);
 
-        if (byId.isEmpty()) {
-            return new Result(false, "没有这个电影", new Movie());
+        return byId.map(value -> new Result(true, "查询成功", value)).orElseGet(() -> new Result(false, "没有这个电影", new Movie()));
+
+    }
+
+    @GetMapping("/{count}")
+    Result getCountMovie(@PathVariable Integer count) {
+        if (count == null) {
+            return new Result(false, "No Count", new Movie());
         }
 
-        return new Result(true, "查询成功", byId.get());
-
+        return Result.success(movieRepository.findByOrderByVoteAverage(PageRequest.of(0, count)));
     }
 }

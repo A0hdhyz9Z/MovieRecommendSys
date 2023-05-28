@@ -19,4 +19,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "from User m order by m.id, m.name")
     List<User> myFind();
+
+    Optional<User> findByName(String name);
+
 }

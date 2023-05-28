@@ -122,7 +122,7 @@ public class DataSourceInitializer implements CommandLineRunner {
                 recommendation.setUser(user);
                 recommendations.add(recommendation);
             }
-
+            users.add(User.builder().name("Test").password("Test").build());
             movieRepository.saveAll(movies);
             userRepository.saveAll(users);
             recommendationRepository.saveAll(recommendations);
