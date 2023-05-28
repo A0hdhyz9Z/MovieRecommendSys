@@ -33,29 +33,29 @@ public class AuthController {
     MySecurity mySecurity;
 
     @PostMapping("/register")
-    Result<?> register(@RequestBody User user) {
+    Result register(@RequestBody User user) {
 
         Optional<User> optUserInDB = userRepository.findById(user.getId());
 
         if (optUserInDB.isPresent()) {
-            return new Result<>(false, "该用户已存在");
+            return new Result(false, "该用户已存在");
         }
 
         userRepository.save(user);
 
-        return new Result<>(true, "注册成功");
+        return new Result(true, "注册成功");
 
     }
 
 
 
     @PostMapping("/login")
-    Result<String> login(@RequestBody User user, HttpServletResponse response) {
+    Result login(@RequestBody User user, HttpServletResponse response) {
 
         Optional<User> optUserInDB = userRepository.findByIdAndName(user.getId(), user.getName());
 
         if (optUserInDB.isEmpty()) {
-            return new Result<>(false, "Id或者密码错误", "");
+            return new Result(false, "Id或者密码错误", "");
         }
 
         // 数据库session逻辑
@@ -66,7 +66,7 @@ public class AuthController {
         response.addCookie(tokenCookie);
         response.addHeader("Access-Control-Allow-Credentials", String.valueOf(true));
 
-        return new Result<>(true, "登陆成功", mySecurity.genToken(user));
+        return new Result(true, "登陆成功", mySecurity.genToken(user));
 
     }
 

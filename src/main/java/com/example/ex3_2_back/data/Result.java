@@ -20,6 +20,11 @@ public class Result {
     public final List<Object> errors = new ArrayList<>();
     public final List<Object> devMessages = new ArrayList<>();
 
+    public Result(boolean success, String message) {
+        this.success = success;
+        this.message = message;
+    }
+
     public static Result success() {
         return Result.builder().success(true).build();
     }
@@ -35,6 +40,12 @@ public class Result {
     public Result addErrors(Object error) {
         errors.add(error);
         return this;
+    }
+
+    public Result(boolean success, String message, Object data) {
+        this.success = success;
+        this.message = message;
+        this.data = data;
     }
 
     public Result addDevMessages(Object devMessage) {

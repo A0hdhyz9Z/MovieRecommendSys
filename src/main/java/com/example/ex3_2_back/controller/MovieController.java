@@ -28,45 +28,45 @@ public class MovieController {
     MovieRepository movieRepository;
 
     @PostMapping
-    Result<?> saveMovie(@RequestBody Movie movie) {
+    Result saveMovie(@RequestBody Movie movie) {
 
         if (movie.getId() < 0) {
-            return new Result<>(false, "No Id");
+            return new Result(false, "No Id");
         }
 
         movieRepository.save(movie);
 
-        return new Result<>(true, "添加电影成功");
+        return new Result(true, "添加电影成功");
 
     }
 
     @DeleteMapping
-    Result<?> deleteMovie(@RequestBody Movie movie) {
+    Result deleteMovie(@RequestBody Movie movie) {
         if (!movieRepository.existsById(movie.getId())) {
-            return new Result<>(false, "No Such Id");
+            return new Result(false, "No Such Id");
         }
 
         movieRepository.deleteById(movie.getId());
 
-        return new Result<>(true, "添加电影成功");
+        return new Result(true, "添加电影成功");
     }
 
     @GetMapping
-    Result<Movie> findMovie(@RequestBody Movie movie) {
+    Result findMovie(@RequestBody Movie movie) {
 
         Integer movieId = movie.getId();
 
         if (movieId == null) {
-            return new Result<>(false, "No Id", new Movie());
+            return new Result(false, "No Id", new Movie());
         }
 
         Optional<Movie> byId = movieRepository.findById(movieId);
 
         if (byId.isEmpty()) {
-            return new Result<>(false, "没有这个电影", new Movie());
+            return new Result(false, "没有这个电影", new Movie());
         }
 
-        return new Result<>(true, "查询成功", byId.get());
+        return new Result(true, "查询成功", byId.get());
 
     }
 }
