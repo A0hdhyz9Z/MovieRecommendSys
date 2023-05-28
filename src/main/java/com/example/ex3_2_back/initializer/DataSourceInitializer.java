@@ -55,7 +55,7 @@ public class DataSourceInitializer implements CommandLineRunner {
             List<User> users = new ArrayList<>();
             List<Recommendation> recommendations = new ArrayList<>();
             for (int i = 0; i < 10; i++) {
-                var user = User.builder().name(String.valueOf(i)).build();
+                var user = User.builder().name(String.valueOf(i)).password(String.valueOf(i)).build();
                 users.add(user);
                 var recommendation = Recommendation.builder().build();
                 var movie1 = Movie.builder().originalTitle(String.valueOf(i * i)).build();
