@@ -15,6 +15,7 @@ import lombok.*;
 public class Movie {
     @Id
     @Column(name = "movie_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     Boolean adult = false;
     Integer budget;

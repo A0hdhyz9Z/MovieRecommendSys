@@ -14,6 +14,7 @@ import lombok.*;
 public class Keyword {
     @Id
     @Column(name = "keyword_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     @OneToOne
     @JoinColumn(name = "tag_hub_id")

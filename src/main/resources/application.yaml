@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: mysqldev
+    active: h2dev
 
 
   jpa:

@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
+@Slf4j
 public class MovieRepositoryTest {
 
     MovieRepository movieRepository;
@@ -37,9 +38,9 @@ public class MovieRepositoryTest {
     }
 
     @Test
-    public void testFindBy(){
-        var m=movieRepository.myFind();
-        System.out.println(Arrays.deepToString(m.toArray()));
+    public void testFindBy() {
+        var m = movieRepository.findMovieRecommendedForUser(1);
+        log.info(Arrays.deepToString(m.toArray()));
     }
 
 }

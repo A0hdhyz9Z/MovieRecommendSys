@@ -10,6 +10,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Rate {
     @Id
     @Column(name = "rate_id")

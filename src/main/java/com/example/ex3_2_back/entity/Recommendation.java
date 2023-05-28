@@ -1,10 +1,7 @@
 package com.example.ex3_2_back.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "recommendation")
@@ -12,8 +9,10 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Recommendation {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     @OneToOne
     @JoinColumn(name = "user_id")

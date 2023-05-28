@@ -13,6 +13,7 @@ import lombok.*;
 public class Worker {
     @Id
     @Column(name = "worker_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     Gender gender = Gender.Unknown;
 }

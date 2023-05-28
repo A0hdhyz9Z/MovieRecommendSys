@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Shipment {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
 
     @OneToOne
