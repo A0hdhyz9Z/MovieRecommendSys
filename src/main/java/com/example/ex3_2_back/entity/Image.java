@@ -1,14 +1,7 @@
 package com.example.ex3_2_back.entity;
 
-import jakarta.annotation.Resource;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.core.io.UrlResource;
-
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Blob;
 
 @Entity
 @Table(name = "t_image")

@@ -3,23 +3,23 @@ package com.example.ex3_2_back.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
-@Table(name = "t_user")
+
 @Builder
 @Setter
 @Getter
 @AllArgsConstructor
-@ToString
 @NoArgsConstructor
+@ToString
+@EqualsAndHashCode
+@Entity
+@Table(name = "t_User")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
-    Integer id;
-//    @Column(unique = true)
     String name;
     String password;
+    @Builder.Default
     Gender gender = Gender.Unknown;
-    @Transient
-    String token;
+    String email;
+    String phone;
+    String address;
 }
