@@ -1,6 +1,8 @@
 package com.example.ex3_2_back.initializer;
 
+import com.example.ex3_2_back.entity.Movie;
 import com.example.ex3_2_back.entity.User;
+import com.example.ex3_2_back.repository.MovieRepository;
 import com.example.ex3_2_back.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,39 +24,34 @@ public class DataSourceInitializer implements CommandLineRunner {
         this.userRepository = userRepository;
     }
 
-    private CommodityRepository commodityRepository;
+    private MovieRepository movieRepository;
 
     @Autowired
-    public void setCommodityRepository(CommodityRepository commodityRepository) {
-        this.commodityRepository = commodityRepository;
+    public void setMovieRepository(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
         // users
-        userRepository.save(User.builder().name("user").password("61259cdf-9cb1-4981-b926-35ebe0906c29").build());
-        userRepository.save(User.builder().name("user1").password("123").build());
-        userRepository.save(User.builder().name("zzq").password("123").build());
-
-        final int initialUserNumber = 100;
-        List<User> users = new ArrayList<>(initialUserNumber);
-        for (int i = 0; i < initialUserNumber; i++) {
-            users.add(User.builder().name("user" + i).password(String.valueOf(i)).build());
-        }
+        List<User> users = new ArrayList<>();
+        users.add(User.builder().name("user").password("61259cdf-9cb1-4981-b926-35ebe0906c29").build());
+        users.add(User.builder().name("Test").password("Test").build());
         userRepository.saveAll(users);
 
-        // commodities
-        commodityRepository.save(Commodity.builder().price(0.2F).name("Test").build());
+        // movies
 
-        final int initialCommodityNumber = 500;
-        List<Commodity> commodities = new ArrayList<>(initialCommodityNumber);
-        for (int i = 0; i < initialCommodityNumber; i++) {
-            commodities.add(Commodity.builder().name("commodity" + i).build());
+        List<Movie> movies = new ArrayList<>();
+
+        for (int i = 0; i < 100; i++) {
+            movies.add(Movie.builder()
+                    .originalTitle("Movie " + i)
+                    .voteAverage(i * 0.01F)
+                    .build());
         }
-        commodityRepository.saveAll(commodities);
 
-
+        movieRepository.saveAll(movies);
     }
 }
 
