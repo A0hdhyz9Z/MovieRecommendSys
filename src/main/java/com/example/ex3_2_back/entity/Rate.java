@@ -14,7 +14,9 @@ import lombok.*;
 public class Rate {
     @Id
     @Column(name = "rate_id")
-    Integer id = 0;
+    // 加上自动生成
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Integer id;
     @OneToOne
     @JoinColumn(name = "movie_id")
     Movie movie;

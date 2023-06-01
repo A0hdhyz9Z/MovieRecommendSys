@@ -14,6 +14,7 @@ import lombok.*;
 public class Genre {
     @Id
     @Column(name = "genre_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     @OneToOne
     @JoinColumn(name = "genre_hub_id")

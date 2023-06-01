@@ -1,8 +1,6 @@
 package com.example.ex3_2_back.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -14,6 +12,7 @@ import lombok.*;
 public class Actor {
     @Id
     @Column(name = "actor_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     Gender gender = Gender.Unknown;
 }

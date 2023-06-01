@@ -1,10 +1,7 @@
 package com.example.ex3_2_back.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -17,6 +14,7 @@ import lombok.*;
 public class GenreHub {
     @Id
     @Column(name = "genre_hub_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
-    String name ;
+    String name;
 }

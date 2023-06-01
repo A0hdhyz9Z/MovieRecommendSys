@@ -13,6 +13,7 @@ import lombok.*;
 public class Cast {
     @Id
     @Column(name = "cast_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     @Column(name = "cast_order")
     Integer order;
