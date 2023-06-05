@@ -10,6 +10,8 @@ import Order from "../views/Order.vue";
 import History from "../views/History.vue";
 import Show from "../views/Show.vue";
 import MovieList from "../views/MovieList.vue";
+import FavoriteList from "../views/FavoriteList.vue";
+import recommendList from "../views/RecommendList.vue";
 
 
 const routes = [
@@ -17,21 +19,31 @@ const routes = [
     {path: "/login", component: Login},
     {path: "/register", component: Register},
     {path: "/forgetPwd", component: ForgetPwd},
-    {path: "/movie", component: MovieList},
+    // {path: "/movie", component: MovieList},
     {path: "/path(.*)", component: NotFound},
     {
         path: "/AppLayout",
         component: AppLayout,
         children: [
             {
-                path: "/Order",
-                name: "/Order",
-                component: Order,
+                path: "/recommend",
+                name: "/recommend",
+                component: recommendList,
             },
             {
                 path: "/History",
                 name: "/History",
                 component: History,
+            },
+            {
+                path: "/movie",
+                name: "/movie",
+                component: MovieList,
+            },
+            {
+                path: "/Favorite",
+                name: "/Favorite",
+                component: FavoriteList,
             },
             {
                 path: "/Show/:id/:name/:description/:dataSet/:alg",

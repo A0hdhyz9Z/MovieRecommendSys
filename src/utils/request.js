@@ -4,10 +4,9 @@ import { ElNotification } from "element-plus";
 // 创建axios实例
 const service = axios.create({
   //baseURL: "http://124.70.62.142:8081/",
-  baseURL: "/api",
+  // baseURL: "/api",
   timeout: 10000, // 请求超时时间
 });
-
 // request拦截器
 service.interceptors.request.use(
   (config) => {

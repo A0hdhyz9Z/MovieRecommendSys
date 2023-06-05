@@ -79,8 +79,10 @@ export default {
     },
     methods: {
         handleLogin() {
+          // this.$router.push('/movie')
           this.$router.push('/movie')
-            /*this.$refs.loginForm.validate((valid) => {
+
+          this.$refs.loginForm.validate((valid) => {
                 const user = {
                     username: this.loginForm.username,
                     password: this.loginForm.password,
@@ -99,7 +101,7 @@ export default {
                                     message: res.message,
                                     type: 'success'
                                 })
-                                this.$router.push('/Order')
+                                this.$router.push('/movie')
                             } else {
                                 this.$message({
                                     showClose: true,
@@ -127,7 +129,7 @@ export default {
                     this.loading = false
                     return false
                 }
-            })*/
+            })
         },
     }
 }

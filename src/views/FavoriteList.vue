@@ -40,8 +40,11 @@
           icon="el-icon-star"
           @click="toggleFavorite(selectedMovie)"
       >
-        <el-icon><StarFilled /></el-icon>
-        收藏</el-button>
+        <el-icon>
+          <StarFilled/>
+        </el-icon>
+        收藏
+      </el-button>
     </el-dialog>
   </div>
 </template>
@@ -67,7 +70,87 @@ export default {
           cast: ["马修·麦康纳", "安妮·海瑟薇", "杰西卡·查斯坦"],
           description: "一部讲述人类探索宇宙奥秘的科幻巨作。",
         },
-
+        {
+          id: 2,
+          title: "盗梦空间",
+          posterUrl: "https://upload.wikimedia.org/wikipedia/zh/7/7f/Inception_ver3.jpg",
+          rating: 4.5,
+          director: "克里斯托弗·诺兰",
+          cast: ["莱昂纳多·迪卡普里奥", "渡边谦", "艾伦·佩吉"],
+          description: "一个梦中梦的世界，让人不禁陷入其中。",
+        },
+        {
+          id: 3,
+          title: "阿凡达",
+          posterUrl: "https://upload.wikimedia.org/wikipedia/zh/b/bc/Interstellar_film_poster.jpg",
+          rating: 3.6,
+          director: "詹姆斯·卡梅隆",
+          cast: ["萨姆·沃辛顿", "佐伊·索尔达娜", "西格妮·韦弗"],
+          description: "一部充满科幻色彩的环保主义电影。",
+        },
+        {
+          id: 4,
+          title: "复仇者联盟",
+          posterUrl: "https://upload.wikimedia.org/wikipedia/zh/b/bc/Interstellar_film_poster.jpg",
+          rating: 3.9,
+          director: "乔斯·韦登",
+          cast: ["小罗伯特·唐尼", "克里斯·埃文斯", "克里斯·海姆斯沃斯"],
+          description: "超级英雄们联手抵抗邪恶势力的故事。",
+        },
+        {
+          id: 5,
+          title: "泰坦尼克号",
+          posterUrl: "https://upload.wikimedia.org/wikipedia/zh/7/7f/Inception_ver3.jpg",
+          rating: 4.2,
+          director: "詹姆斯·卡梅隆",
+          cast: ["莱昂纳多·迪卡普里奥", "凯特·温丝莱特", "比利·赞恩"],
+          description: "一部讲述爱情与悲剧的经典电影。",
+        },
+        {
+          id: 6,
+          title: "555",
+          posterUrl: "https://upload.wikimedia.org/wikipedia/zh/b/bc/Interstellar_film_poster.jpg",
+          rating: 4.6,
+          director: "克里斯托弗·诺兰",
+          cast: ["马修·麦康纳", "安妮·海瑟薇", "杰西卡·查斯坦"],
+          description: "一部讲述人类探索宇宙奥秘的科幻巨作。",
+        },
+        {
+          id: 7,
+          title: "777间",
+          posterUrl: "https://upload.wikimedia.org/wikipedia/zh/b/bc/Interstellar_film_poster.jpg",
+          rating: 4.5,
+          director: "克里斯托弗·诺兰",
+          cast: ["莱昂纳多·迪卡普里奥", "渡边谦", "艾伦·佩吉"],
+          description: "一个梦中梦的世界，让人不禁陷入其中。",
+        },
+        {
+          id: 8,
+          title: "凡达",
+          posterUrl: "https://upload.wikimedia.org/wikipedia/zh/7/7f/Inception_ver3.jpg",
+          rating: 3.6,
+          director: "詹姆斯·卡梅隆",
+          cast: ["萨姆·沃辛顿", "佐伊·索尔达娜", "西格妮·韦弗"],
+          description: "一部充满科幻色彩的环保主义电影。",
+        },
+        {
+          id: 9,
+          title: "5555",
+          posterUrl: "https://upload.wikimedia.org/wikipedia/zh/b/bc/Interstellar_film_poster.jpg",
+          rating: 3.9,
+          director: "乔斯·韦登",
+          cast: ["小罗伯特·唐尼", "克里斯·埃文斯", "克里斯·海姆斯沃斯"],
+          description: "超级英雄们联手抵抗邪恶势力的故事。",
+        },
+        {
+          id: 10,
+          title: "克号",
+          posterUrl: "https://upload.wikimedia.org/wikipedia/zh/7/7f/Inception_ver3.jpg",
+          rating: 4.2,
+          director: "詹姆斯·卡梅隆",
+          cast: ["莱昂纳多·迪卡普里奥", "凯特·温丝莱特", "比利·赞恩"],
+          description: "一部讲述爱情与悲剧的经典电影。",
+        },
       ],
       currentPage: 1,
       pageSize: 30,
@@ -179,13 +262,14 @@ export default {
 
 .details {
   width: 50%;
-  padding-left: 20px;  /* add some padding so the text isn't right up against the image */
+  padding-left: 20px; /* add some padding so the text isn't right up against the image */
 }
 
 .poster {
   max-width: 350px;
   height: auto;
 }
+
 .details p {
   font-size: 20px;
 }
