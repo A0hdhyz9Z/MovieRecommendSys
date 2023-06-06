@@ -1,4 +1,4 @@
-package com.example.ex3_2_back.controller.dev;
+package com.example.ex3_2_back.controller;
 
 import com.example.ex3_2_back.entity.User;
 import com.example.ex3_2_back.domain.Result;
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/dev/commodity")
-public class DevUserController {
+@RequestMapping("/user")
+public class UserController {
     private UserRepository userRepository;
 
     @Autowired
@@ -16,7 +16,7 @@ public class DevUserController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public Result all() {
         return Result.success(userRepository.findAll());
     }

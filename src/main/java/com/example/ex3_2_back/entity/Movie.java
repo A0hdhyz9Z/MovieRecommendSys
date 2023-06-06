@@ -16,18 +16,18 @@ public class Movie {
     @Column(name = "movie_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
-    Boolean adult = false;
+    Boolean adult;
     Integer budget;
-    String homepage = "";
+    String homepage;
     @Column(name = "original_language")
-    String originalLanguage = "";
+    String originalLanguage;
     @Column(name = "original_title")
-    String originalTitle = "";
-    Float popularity = 0.0f;
+    String originalTitle;
+    Float popularity;
     @Column(name = "poster_path")
-    String posterPath = "";
+    String posterPath;
     @Column(name = "release_date")
-    String releaseDate = "";
+    String releaseDate;
     Integer revenue;
     Integer runtime;
     String status;

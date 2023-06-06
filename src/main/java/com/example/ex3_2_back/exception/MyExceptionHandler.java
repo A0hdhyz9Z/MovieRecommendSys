@@ -1,4 +1,4 @@
-package com.example.ex3_2_back.exceptionhandler;
+package com.example.ex3_2_back.exception;
 
 import com.example.ex3_2_back.domain.Result;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +16,6 @@ public class MyExceptionHandler {
     @ResponseBody
     public Result handleException(Exception e) {
         log.error(e.getMessage(), e);
-        return Result.error(e.getMessage() + " from " + getClass().getName());
+        return Result.error(e.getMessage()).addErrors(e);
     }
 }
