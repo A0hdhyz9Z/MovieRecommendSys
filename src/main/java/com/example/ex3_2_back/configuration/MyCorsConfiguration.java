@@ -13,7 +13,8 @@ public class MyCorsConfiguration {
     public CorsFilter corsFilter() {
         val source = new UrlBasedCorsConfigurationSource();
         val corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedOrigin("http://localhost:5173");
+        corsConfiguration.setAllowCredentials(true);
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.setMaxAge(24L * 60L * 60L);
