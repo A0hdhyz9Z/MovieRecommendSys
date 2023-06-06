@@ -23,8 +23,5 @@ public class Recommend {
     @OneToOne
     @JoinColumn(name = "movie_id")
     Movie movie;
-    @OneToOne
-    @JoinColumn(name = "score")
     Float score;
-
 }
