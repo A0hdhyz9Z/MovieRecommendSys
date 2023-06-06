@@ -1,11 +1,7 @@
 package com.example.ex3_2_back.initializer;
 
-import com.example.ex3_2_back.entity.Movie;
-import com.example.ex3_2_back.entity.Rate;
-import com.example.ex3_2_back.entity.User;
-import com.example.ex3_2_back.repository.MovieRepository;
-import com.example.ex3_2_back.repository.RateRepository;
-import com.example.ex3_2_back.repository.UserRepository;
+import com.example.ex3_2_back.entity.*;
+import com.example.ex3_2_back.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -40,6 +36,20 @@ public class DataSourceInitializer implements CommandLineRunner {
         this.rateRepository = rateRepository;
     }
 
+    private WorkerRepository workerRepository;
+
+    @Autowired
+    public void setWorkerRepository(WorkerRepository workerRepository) {
+        this.workerRepository = workerRepository;
+    }
+
+    private WorkingRepository workingRepository;
+
+    @Autowired
+    public void setWorkingRepository(WorkingRepository workingRepository) {
+        this.workingRepository = workingRepository;
+    }
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -52,7 +62,8 @@ public class DataSourceInitializer implements CommandLineRunner {
         userRepository.saveAll(users);
 
 
-        // movies
+        List<Worker> workers = new ArrayList<>();
+        List<Working> workings = new ArrayList<>();
 
         List<Movie> movies = new ArrayList<>();
 
@@ -60,14 +71,22 @@ public class DataSourceInitializer implements CommandLineRunner {
         movies.add(movie);
 
         for (int i = 0; i < 100; i++) {
-            movies.add(Movie.builder()
+            movie = Movie.builder()
                     .originalTitle("Movie " + i)
                     .voteAverage(i * 0.01F)
-                    .build());
+                    .build();
+            var worker = Worker.builder().name("zzq").build();
+
+            var working = Working.builder().worker(worker).movie(movie).build();
+
+            workings.add(working);
+            workers.add(worker);
+            movies.add(movie);
         }
 
         movieRepository.saveAll(movies);
-
+        workerRepository.saveAll(workers);
+        workingRepository.saveAll(workings);
 
         rateRepository.save(Rate.builder().user(user).movie(movie).build());
     }
