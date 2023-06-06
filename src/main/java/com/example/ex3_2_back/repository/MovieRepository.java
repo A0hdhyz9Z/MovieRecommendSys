@@ -9,5 +9,6 @@ import java.util.List;
 
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
     List<Movie> findByOrderByVoteAverage();
+    // @czy 这里 Pageable pageable
     List<Movie> findByOrderByVoteAverage(Pageable pageable);
 }
