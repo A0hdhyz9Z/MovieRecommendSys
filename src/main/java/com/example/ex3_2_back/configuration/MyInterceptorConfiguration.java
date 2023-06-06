@@ -17,9 +17,9 @@ public class MyInterceptorConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        /*registry
+        registry
                 .addInterceptor(authInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/auth/**", "/dev/**", "/css/**", "/favicon.ico");*/
+                .excludePathPatterns("/auth/**", "/dev/**", "/css/**", "/favicon.ico");
     }
 }
