@@ -73,6 +73,7 @@ public class AuthService {
                 .name(registerDomain.getUsername())
                 .password(registerDomain.getPassword1())
                 .gender(registerDomain.getGender())
+                .email(registerDomain.getEmail())
                 .build());
 
         return Result.success();

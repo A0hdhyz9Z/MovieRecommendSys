@@ -41,7 +41,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public Result register(@RequestBody @NotNull RegisterDomain registerDomain) {
-        return Result.success();
+        return authService.register(registerDomain);
     }
 
 
