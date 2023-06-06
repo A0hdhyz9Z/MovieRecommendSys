@@ -91,6 +91,8 @@ public class AuthService {
         cookie.setPath("/");
         cookie.setMaxAge(30000000);
         response.addCookie(cookie);
+        response.addHeader("token", token);
+        response.addHeader("username", username);
     }
 
     /**

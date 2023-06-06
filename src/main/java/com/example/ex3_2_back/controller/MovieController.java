@@ -44,4 +44,5 @@ public class MovieController {
     public Result delete(@PathVariable Integer id) {
         return Result.success();
     }
+
 }

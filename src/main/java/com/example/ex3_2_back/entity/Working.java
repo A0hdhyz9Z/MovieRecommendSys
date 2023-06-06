@@ -9,9 +9,12 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Actor {
+public class Working {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
-    Gender gender = Gender.Unknown;
+    @OneToOne
+    Worker worker;
+    @OneToOne
+    Movie movie;
 }

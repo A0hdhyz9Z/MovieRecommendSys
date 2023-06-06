@@ -12,8 +12,12 @@ import lombok.*;
 @NoArgsConstructor
 public class Worker {
     @Id
-    @Column(name = "worker_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
+    String name;
+    @Builder.Default
     Gender gender = Gender.Unknown;
+    String email;
+    String phone;
+    String address;
 }
