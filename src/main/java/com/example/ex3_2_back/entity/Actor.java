@@ -13,5 +13,7 @@ public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
+    @Builder.Default
     Gender gender = Gender.Unknown;
+    String name;
 }

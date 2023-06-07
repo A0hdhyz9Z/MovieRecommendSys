@@ -1,14 +1,16 @@
 package com.example.ex3_2_back.controller;
 
+import com.example.ex3_2_back.domain.movie.MovieDetail;
 import com.example.ex3_2_back.domain.Result;
+import com.example.ex3_2_back.domain.movie.MovieDetailData;
+import com.example.ex3_2_back.entity.Actor;
 import com.example.ex3_2_back.entity.Movie;
-import com.example.ex3_2_back.entity.User;
+import com.example.ex3_2_back.entity.Worker;
 import com.example.ex3_2_back.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.util.Arrays;
 
 @RestController
 @RequestMapping("/movie")
@@ -21,12 +23,24 @@ public class MovieController {
     }
 
     @GetMapping
-    // https://example.com/api/movies?page=${page}&pageSize=${pageSize}
     public Result getMovie(@RequestParam int page, @RequestParam int pageSize) {
-        var data = new HashMap<String, Object>();
-        data.put("movies", movieRepository.findByOrderByVoteAverage(PageRequest.of(page-1, pageSize)));
-        data.put("total", movieRepository.count());
-        return Result.success(data);
+        return Result.success(MovieDetailData.builder()
+                .total(100)
+                .build()
+                .addMovieDetail(
+                        MovieDetail.builder()
+                                .movie(Movie.builder()
+                                        .originalTitle("功夫熊猫")
+                                        .id(10086)
+                                        .build())
+                                .director("张泽清")
+                                .favorite(true)
+                                .build()
+                                .addTags("动作", "戏剧", "搞笑")
+                                .addActors("张泽清", "赵牧", "李宗浩"),
+                        MovieDetail.builder().build()
+                )
+        );
     }
 
     @GetMapping("/{id}")
