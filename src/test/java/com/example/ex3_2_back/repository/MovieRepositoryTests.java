@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.Arrays;
@@ -54,22 +55,22 @@ public class MovieRepositoryTests {
     @Test
     public void test() {
 
-        var l = movieRepository.findAll(new Example<Movie>() {
+        Page<Movie> dark = movieRepository.findAll(new Example<>() {
             @Override
             public @NotNull Movie getProbe() {
-                return Movie.builder().originalTitle("1").build();
+                return Movie.builder().originalTitle("Dark").build();
             }
 
             @Override
             public @NotNull ExampleMatcher getMatcher() {
-                return ExampleMatcher.matching()
-                        .withMatcher("seenCount", ExampleMatcher.GenericPropertyMatcher::exact)
+                return ExampleMatcher.matchingAll()
                         .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
                         .withIgnoreCase();
             }
-        });
+        }, PageRequest.of(0, 10));
 
-        l.forEach(m -> log.info(m.getOriginalTitle()));
+
+        log.info(dark.toString());
     }
 
 

@@ -12,5 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class FilterDomain {
+    Float vote;
     final List<String> tags = new ArrayList<>();
 }

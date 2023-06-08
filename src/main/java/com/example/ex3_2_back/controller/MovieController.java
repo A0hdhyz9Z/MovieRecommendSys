@@ -96,10 +96,11 @@ public class MovieController {
 
     @PostMapping("/search")
     public Result search(@RequestBody SearchDomain searchDomain, @RequestParam int page, @RequestParam int pageSize) {
-        return Result.success(movieRepository.findAll(new Example<Movie>() {
+        return Result.success(movieRepository.findAll(new Example<>() {
             @Override
             public @NotNull Movie getProbe() {
-                return searchDomain.getMovie();
+                var movie = searchDomain.getMovie();
+                return movie != null ? movie : Movie.builder().build();
             }
 
             @Override
@@ -112,7 +113,7 @@ public class MovieController {
     }
 
     @PostMapping("/filter")
-    public Result filter(@RequestBody FilterDomain filterDomain, @RequestParam int page, @RequestParam int pageSize) {
+    public Result filter(@RequestBody @NotNull FilterDomain filterDomain, @RequestParam int page, @RequestParam int pageSize) {
         return Result.success(movieRepository.findMovieWithTags(filterDomain.getTags(), PageRequest.of(page - 1, pageSize)));
     }
 
