@@ -1,7 +1,6 @@
 package com.example.ex3_2_back.domain.movie;
 
 import com.example.ex3_2_back.entity.Movie;
-import com.example.ex3_2_back.entity.TagHub;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -13,6 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class SearchDomain {
-    Movie movie;
+public class FilterDomain {
+    final List<String> tags = new ArrayList<>();
 }

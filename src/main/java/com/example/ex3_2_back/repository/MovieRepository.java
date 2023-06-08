@@ -30,6 +30,9 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     @Query("select k.movie from Keyword k,TagHub t where t.id = k.tagHub.id and t.name in :tags")
     List<Movie> findMovieWithTags(List<String> tags);
 
+    @Query("select k.movie from Keyword k,TagHub t where t.id = k.tagHub.id and t.name in :tags")
+    List<Movie> findMovieWithTags(List<String> tags, Pageable pageable);
+
 
 
 }

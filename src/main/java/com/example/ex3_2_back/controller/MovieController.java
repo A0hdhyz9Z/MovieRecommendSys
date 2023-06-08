@@ -2,6 +2,7 @@ package com.example.ex3_2_back.controller;
 
 import com.example.ex3_2_back.domain.Result;
 import com.example.ex3_2_back.domain.movie.FavoriteResponseData;
+import com.example.ex3_2_back.domain.movie.FilterDomain;
 import com.example.ex3_2_back.domain.movie.MovieDetailData;
 import com.example.ex3_2_back.domain.movie.SearchDomain;
 import com.example.ex3_2_back.entity.Favorite;
@@ -12,6 +13,8 @@ import com.example.ex3_2_back.service.MovieService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
@@ -86,8 +89,25 @@ public class MovieController {
     }
 
     @PostMapping("/search")
-    public Result search(@RequestBody SearchDomain searchDomain) {
-        return Result.success();
+    public Result search(@RequestBody SearchDomain searchDomain, @RequestParam int page, @RequestParam int pageSize) {
+        return Result.success(movieRepository.findAll(new Example<Movie>() {
+            @Override
+            public @NotNull Movie getProbe() {
+                return searchDomain.getMovie();
+            }
+
+            @Override
+            public @NotNull ExampleMatcher getMatcher() {
+                return ExampleMatcher.matchingAll()
+                        .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                        .withIgnoreCase();
+            }
+        }, PageRequest.of(page - 1, pageSize)));
+    }
+
+    @PostMapping("/filter")
+    public Result filter(@RequestBody FilterDomain filterDomain, @RequestParam int page, @RequestParam int pageSize) {
+        return Result.success(movieRepository.findMovieWithTags(filterDomain.getTags(), PageRequest.of(page - 1, pageSize)));
     }
 
     @GetMapping("/favorite")
