@@ -1,51 +1,39 @@
 package com.example.ex3_2_back.controller;
 
-import com.example.ex3_2_back.domain.movie.MovieDetail;
 import com.example.ex3_2_back.domain.Result;
-import com.example.ex3_2_back.domain.movie.MovieDetailData;
 import com.example.ex3_2_back.domain.movie.SearchDomain;
-import com.example.ex3_2_back.entity.Actor;
 import com.example.ex3_2_back.entity.Movie;
-import com.example.ex3_2_back.entity.Worker;
 import com.example.ex3_2_back.repository.MovieRepository;
+import com.example.ex3_2_back.service.MovieService;
 import jakarta.servlet.http.HttpServletRequest;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Arrays;
 
 @RestController
 @RequestMapping("/movie")
 public class MovieController {
-    private MovieRepository movieRepository;
+    MovieRepository movieRepository;
 
     @Autowired
     public void setMovieRepository(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
-    @GetMapping
-    public Result getMovie(@RequestParam int page, @RequestParam int pageSize) {
-        return Result.success(MovieDetailData.builder()
-                .total(100)
-                .build()
-                .addMovieDetail(
-                        MovieDetail.builder()
-                                .movie(Movie.builder()
-                                        .originalTitle("功夫熊猫")
-                                        .id(10086)
-                                        .build())
-                                .director("张泽清")
-                                .favorite(true)
-                                .build()
-                                .addTags("动作", "戏剧", "搞笑")
-                                .addActors("张泽清", "赵牧", "李宗浩"),
-                        MovieDetail.builder().build()
-                )
-        );
+    MovieService movieService;
+
+    @Autowired
+    public void setMovieService(MovieService movieService) {
+        this.movieService = movieService;
     }
 
-//    @GetMapping("/{id}")
+    @GetMapping
+    public Result getMovie(@RequestParam int page, @RequestParam int pageSize) {
+        return Result.success(movieService.findMovieDetails(PageRequest.of(page - 1, pageSize)));
+    }
+
+    //    @GetMapping("/{id}")
     // /movie/123
     public Result one(@PathVariable Integer id) {
         return Result.success(movieRepository.findById(id));
@@ -63,13 +51,14 @@ public class MovieController {
 
     @PostMapping("/search")
     public Result search(@RequestBody SearchDomain searchDomain) {
-        return Result.success(movieRepository.findMovieDetails());
+        return Result.success();
     }
 
     @GetMapping("/favorite")
-    public Result favorite(HttpServletRequest request) {
+    public Result favorite(@NotNull HttpServletRequest request) {
         String username = request.getHeader("username");
         return Result.success();
     }
+
 
 }

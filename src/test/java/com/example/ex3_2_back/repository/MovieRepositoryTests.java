@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.PageRequest;
+
+import java.util.Arrays;
 
 @SpringBootTest
 @Slf4j
@@ -22,6 +25,16 @@ public class MovieRepositoryTests {
     @Test
     public void test_findMovieDetails() {
         log.info(movieRepository.findMovieDetails().toString());
+    }
+
+    @Test
+    public void test_findMovieDetails_Pageable() {
+        log.info(movieRepository.findMovieDetails(PageRequest.of(2, 10)).toString());
+    }
+
+    @Test
+    public void test_findMovieWithTags() {
+        movieRepository.findMovieWithTags(Arrays.asList("War", "Sci-Fi")).forEach(movie -> log.info(movie.toString()));
     }
 
     @Test
@@ -58,7 +71,6 @@ public class MovieRepositoryTests {
 
         l.forEach(m -> log.info(m.getOriginalTitle()));
     }
-
 
 
 }

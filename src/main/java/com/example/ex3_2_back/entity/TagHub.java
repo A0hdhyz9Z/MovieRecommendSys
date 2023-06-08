@@ -10,11 +10,10 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class TagHub {
     @Id
-    @Column(name = "keyword_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
-    @Column(name = "keyword_name")
     String name;
 }
