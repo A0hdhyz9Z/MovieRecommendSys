@@ -63,14 +63,15 @@ public class MovieRepositoryTests {
 
             @Override
             public @NotNull ExampleMatcher getMatcher() {
-                return ExampleMatcher.matchingAll()
-                        .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
-                        .withIgnoreCase();
+                return ExampleMatcher.matching()
+                        .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
             }
         }, PageRequest.of(0, 10));
 
 
-        log.info(dark.toString());
+
+        dark.getContent().forEach(movie -> log.info(movie.getOriginalTitle()));
     }
 
 
