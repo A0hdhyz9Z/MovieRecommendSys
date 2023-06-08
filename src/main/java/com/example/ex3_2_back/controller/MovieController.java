@@ -4,11 +4,10 @@ import com.example.ex3_2_back.domain.Result;
 import com.example.ex3_2_back.domain.movie.FavoriteResponseData;
 import com.example.ex3_2_back.domain.movie.MovieDetailData;
 import com.example.ex3_2_back.domain.movie.SearchDomain;
+import com.example.ex3_2_back.entity.Favorite;
 import com.example.ex3_2_back.entity.Movie;
-import com.example.ex3_2_back.repository.ActorRepository;
-import com.example.ex3_2_back.repository.FavoriteRepository;
-import com.example.ex3_2_back.repository.MovieRepository;
-import com.example.ex3_2_back.repository.WorkerRepository;
+import com.example.ex3_2_back.entity.User;
+import com.example.ex3_2_back.repository.*;
 import com.example.ex3_2_back.service.MovieService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.jetbrains.annotations.NotNull;
@@ -16,9 +15,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/movie")
 public class MovieController {
+
+    UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     WorkerRepository workerRepository;
 
@@ -89,8 +97,26 @@ public class MovieController {
     }
 
     @PostMapping("/favorite/{movieId}")
-    public Result setFavorite(@NotNull HttpServletRequest request, @PathVariable String movieId) {
+    public Result setFavorite(@NotNull HttpServletRequest request, @PathVariable Integer movieId) {
         String username = request.getHeader("username");
+        Optional<User> optionalUser = userRepository.findByName(username);
+
+        if (optionalUser.isEmpty()) {
+            return Result.error("Invalid username " + username);
+        }
+
+        User user = optionalUser.get();
+        Movie movie = Movie.builder().id(movieId).build();
+
+        if (favoriteRepository.existsByUserAndMovie(user, movie)) {
+            return Result.error(String.format("用户%s已经收藏了电影%d", username, movieId));
+        }
+
+        favoriteRepository.save(Favorite.builder()
+                .user(user)
+                .movie(movie)
+                .build());
+
         return Result.success();
     }
 
