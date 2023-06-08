@@ -15,49 +15,49 @@ import java.util.List;
 @Component
 public class DataSourceInitializer implements CommandLineRunner {
 
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    private MovieRepository movieRepository;
+    MovieRepository movieRepository;
 
     @Autowired
     public void setMovieRepository(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
-    private RateRepository rateRepository;
+    RateRepository rateRepository;
 
     @Autowired
     public void setRateRepository(RateRepository rateRepository) {
         this.rateRepository = rateRepository;
     }
 
-    private WorkerRepository workerRepository;
+    WorkerRepository workerRepository;
 
     @Autowired
     public void setWorkerRepository(WorkerRepository workerRepository) {
         this.workerRepository = workerRepository;
     }
 
-    private WorkingRepository workingRepository;
+    WorkingRepository workingRepository;
 
     @Autowired
     public void setWorkingRepository(WorkingRepository workingRepository) {
         this.workingRepository = workingRepository;
     }
 
-    private ActorRepository actorRepository;
+    ActorRepository actorRepository;
 
     @Autowired
     public void setActorRepository(ActorRepository actorRepository) {
         this.actorRepository = actorRepository;
     }
 
-    private CastRepository castRepository;
+    CastRepository castRepository;
 
     @Autowired
     public void setCastRepository(CastRepository castRepository) {
@@ -67,52 +67,55 @@ public class DataSourceInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        List<User> users = new ArrayList<>();
-        var user = User.builder().name("user").password("61259cdf-9cb1-4981-b926-35ebe0906c29").build();
-        users.add(user);
-        users.add(User.builder().name("Test").password("Test").build());
-        users.add(User.builder().name("zzq").password("123").build());
-        userRepository.saveAll(users);
 
+//
+//        List<User> users = new ArrayList<>();
+//        var user = User.builder().name("user").password("61259cdf-9cb1-4981-b926-35ebe0906c29").build();
+//        users.add(user);
+//        users.add(User.builder().name("Test").password("Test").build());
+//        users.add(User.builder().name("zzq").password("123").build());
+//        userRepository.saveAll(users);
+//
+//
+//        List<Worker> workers = new ArrayList<>();
+//        List<Working> workings = new ArrayList<>();
+//        List<Actor> actors = new ArrayList<>();
+//        List<Cast> casts = new ArrayList<>();
+//        List<Movie> movies = new ArrayList<>();
+//        Movie movie = null;
+//        for (int i = 0; i < 100; i++) {
+//            movie = Movie.builder()
+//                    .originalTitle("Movie " + i)
+//                    .voteAverage(i * 0.01F)
+//                    .build();
+//            var worker = Worker.builder().name("zzq").position("director").build();
+//
+//            var working = Working.builder().worker(worker).movie(movie).build();
+//
+//            workings.add(working);
+//            workers.add(worker);
+//            movies.add(movie);
+//
+//            for (int j = 0; j < 10; j++) {
+//                var actor = Actor.builder()
+//                        .name(String.format("Actor(%d,%d)", i, j))
+//                        .build();
+//                actors.add(actor);
+//                casts.add(Cast.builder()
+//                        .movie(movie)
+//                        .actor(actor)
+//                        .build());
+//            }
+//        }
+//
+//        movieRepository.saveAll(movies);
+//        workerRepository.saveAll(workers);
+//        workingRepository.saveAll(workings);
+//        actorRepository.saveAll(actors);
+//        castRepository.saveAll(casts);
+//
+//        rateRepository.save(Rate.builder().user(user).movie(movie).build());
 
-        List<Worker> workers = new ArrayList<>();
-        List<Working> workings = new ArrayList<>();
-        List<Actor> actors = new ArrayList<>();
-        List<Cast> casts = new ArrayList<>();
-        List<Movie> movies = new ArrayList<>();
-        Movie movie = null;
-        for (int i = 0; i < 100; i++) {
-            movie = Movie.builder()
-                    .originalTitle("Movie " + i)
-                    .voteAverage(i * 0.01F)
-                    .build();
-            var worker = Worker.builder().name("zzq").position("director").build();
-
-            var working = Working.builder().worker(worker).movie(movie).build();
-
-            workings.add(working);
-            workers.add(worker);
-            movies.add(movie);
-
-            for (int j = 0; j < 10; j++) {
-                var actor = Actor.builder()
-                        .name(String.format("Actor(%d,%d)", i, j))
-                        .build();
-                actors.add(actor);
-                casts.add(Cast.builder()
-                        .movie(movie)
-                        .actor(actor)
-                        .build());
-            }
-        }
-
-        movieRepository.saveAll(movies);
-        workerRepository.saveAll(workers);
-        workingRepository.saveAll(workings);
-        actorRepository.saveAll(actors);
-        castRepository.saveAll(casts);
-
-        rateRepository.save(Rate.builder().user(user).movie(movie).build());
     }
 }
 

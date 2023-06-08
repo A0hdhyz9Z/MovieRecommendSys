@@ -8,6 +8,7 @@ import com.example.ex3_2_back.entity.Actor;
 import com.example.ex3_2_back.entity.Movie;
 import com.example.ex3_2_back.entity.Worker;
 import com.example.ex3_2_back.repository.MovieRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +45,7 @@ public class MovieController {
         );
     }
 
-    @GetMapping("/{id}")
+//    @GetMapping("/{id}")
     // /movie/123
     public Result one(@PathVariable Integer id) {
         return Result.success(movieRepository.findById(id));
@@ -63,6 +64,12 @@ public class MovieController {
     @PostMapping("/search")
     public Result search(@RequestBody SearchDomain searchDomain) {
         return Result.success(movieRepository.findMovieDetails());
+    }
+
+    @GetMapping("/favorite")
+    public Result favorite(HttpServletRequest request) {
+        String username = request.getHeader("username");
+        return Result.success();
     }
 
 }

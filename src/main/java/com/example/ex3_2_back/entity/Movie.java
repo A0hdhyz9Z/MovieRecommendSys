@@ -4,38 +4,31 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "movies")
 @Builder
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Table(name = "t_Movie")
 public class Movie {
     @Id
-    @Column(name = "movie_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     Boolean adult;
     Integer budget;
     String homepage;
-    @Column(name = "original_language")
     String originalLanguage;
-    @Column(name = "original_title")
     String originalTitle;
     Float popularity;
-    @Column(name = "poster_path")
     String posterPath;
-    @Column(name = "release_date")
     String releaseDate;
     Integer revenue;
     Integer runtime;
     String status;
     String tagline;
     String title;
-    @Column(name = "vote_average")
     Float voteAverage;
-    @Column(name = "vote_count")
     Integer voteCount;
     String overview;
     Integer seenCount = 10;
