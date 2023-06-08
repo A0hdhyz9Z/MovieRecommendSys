@@ -79,7 +79,6 @@ public class MovieController {
     }
 
     //    @GetMapping("/{id}")
-    // /movie/123
     public Result one(@PathVariable Integer id) {
         return Result.success(movieRepository.findById(id));
     }
@@ -152,6 +151,7 @@ public class MovieController {
     public Result details(@PathVariable Integer movieId) {
         FavoriteResponseData favoriteResponseData = new FavoriteResponseData();
         favoriteResponseData.setActors(actorRepository.findActorsOfMovie(movieId));
+        movieRepository.incrementSeenCount(movieId);
         var optMovie = movieRepository.findById(movieId);
         var optDirector = workerRepository.getDirectorOfMovie(movieId);
         optDirector.ifPresent(favoriteResponseData::setDirector);

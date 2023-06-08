@@ -31,6 +31,6 @@ public class Movie {
     Float voteAverage;
     Integer voteCount;
     String overview;
-    Integer seenCount = 10;
+    Integer seenCount ;
 }
 
