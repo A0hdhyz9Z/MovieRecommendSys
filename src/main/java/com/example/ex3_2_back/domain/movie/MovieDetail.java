@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @Builder
@@ -16,6 +17,17 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class MovieDetail {
+    public MovieDetail(Movie movie, String director) {
+        this.movie = movie;
+        this.director = director;
+    }
+
+    public MovieDetail(Movie movie, String director, String... actors) {
+        this.movie = movie;
+        this.director = director;
+        addActors(actors);
+    }
+
     Movie movie;
     String director;
     final List<String> tags = new ArrayList<>();
@@ -24,6 +36,11 @@ public class MovieDetail {
 
     public MovieDetail addActors(String... actors) {
         this.actors.addAll(Arrays.asList(actors));
+        return this;
+    }
+
+    public MovieDetail addActors(Collection<String> actors) {
+        this.actors.addAll(actors);
         return this;
     }
 

@@ -38,6 +38,6 @@ public class Movie {
     @Column(name = "vote_count")
     Integer voteCount;
     String overview;
-    Integer seenCount;
+    Integer seenCount = 10;
 }
 

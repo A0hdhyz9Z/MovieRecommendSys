@@ -1,15 +1,24 @@
 package com.example.ex3_2_back.repository;
 
+import com.example.ex3_2_back.domain.movie.MovieDetail;
 import com.example.ex3_2_back.entity.Movie;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import java.util.List;
 
 @RepositoryRestResource(path = "repo-movie")
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
     List<Movie> findByOrderByVoteAverage();
+
     // @czy 这里 Pageable pageable
     List<Movie> findByOrderByVoteAverage(Pageable pageable);
+
+    @Query("select new com.example.ex3_2_back.domain.movie.MovieDetail(m, w.name) from Movie m, Worker w, Working mw where w.position = 'director' and m.id = mw.movie.id and w.id = mw.worker.id")
+    List<MovieDetail> findMovieDetails();
+
 }

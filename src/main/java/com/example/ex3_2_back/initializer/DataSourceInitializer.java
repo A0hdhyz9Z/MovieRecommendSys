@@ -50,10 +50,23 @@ public class DataSourceInitializer implements CommandLineRunner {
         this.workingRepository = workingRepository;
     }
 
+    private ActorRepository actorRepository;
+
+    @Autowired
+    public void setActorRepository(ActorRepository actorRepository) {
+        this.actorRepository = actorRepository;
+    }
+
+    private CastRepository castRepository;
+
+    @Autowired
+    public void setCastRepository(CastRepository castRepository) {
+        this.castRepository = castRepository;
+    }
+
     @Override
     public void run(String... args) throws Exception {
 
-        // users
         List<User> users = new ArrayList<>();
         var user = User.builder().name("user").password("61259cdf-9cb1-4981-b926-35ebe0906c29").build();
         users.add(user);
@@ -64,29 +77,40 @@ public class DataSourceInitializer implements CommandLineRunner {
 
         List<Worker> workers = new ArrayList<>();
         List<Working> workings = new ArrayList<>();
-
+        List<Actor> actors = new ArrayList<>();
+        List<Cast> casts = new ArrayList<>();
         List<Movie> movies = new ArrayList<>();
-
-        var movie = Movie.builder().originalTitle("123123123123123123123").build();
-        movies.add(movie);
-
+        Movie movie = null;
         for (int i = 0; i < 100; i++) {
             movie = Movie.builder()
                     .originalTitle("Movie " + i)
                     .voteAverage(i * 0.01F)
                     .build();
-            var worker = Worker.builder().name("zzq").build();
+            var worker = Worker.builder().name("zzq").position("director").build();
 
             var working = Working.builder().worker(worker).movie(movie).build();
 
             workings.add(working);
             workers.add(worker);
             movies.add(movie);
+
+            for (int j = 0; j < 10; j++) {
+                var actor = Actor.builder()
+                        .name(String.format("Actor(%d,%d)", i, j))
+                        .build();
+                actors.add(actor);
+                casts.add(Cast.builder()
+                        .movie(movie)
+                        .actor(actor)
+                        .build());
+            }
         }
 
         movieRepository.saveAll(movies);
         workerRepository.saveAll(workers);
         workingRepository.saveAll(workings);
+        actorRepository.saveAll(actors);
+        castRepository.saveAll(casts);
 
         rateRepository.save(Rate.builder().user(user).movie(movie).build());
     }

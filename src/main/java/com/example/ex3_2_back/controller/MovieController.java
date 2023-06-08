@@ -3,6 +3,7 @@ package com.example.ex3_2_back.controller;
 import com.example.ex3_2_back.domain.movie.MovieDetail;
 import com.example.ex3_2_back.domain.Result;
 import com.example.ex3_2_back.domain.movie.MovieDetailData;
+import com.example.ex3_2_back.domain.movie.SearchDomain;
 import com.example.ex3_2_back.entity.Actor;
 import com.example.ex3_2_back.entity.Movie;
 import com.example.ex3_2_back.entity.Worker;
@@ -57,6 +58,11 @@ public class MovieController {
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         return Result.success();
+    }
+
+    @PostMapping("/search")
+    public Result search(@RequestBody SearchDomain searchDomain) {
+        return Result.success(movieRepository.findMovieDetails());
     }
 
 }

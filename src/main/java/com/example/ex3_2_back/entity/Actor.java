@@ -9,6 +9,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
