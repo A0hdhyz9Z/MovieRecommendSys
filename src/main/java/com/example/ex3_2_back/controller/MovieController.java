@@ -129,5 +129,10 @@ public class MovieController {
         return Result.success(favoriteResponseData);
     }
 
+    @GetMapping("/recommend")
+    public Result recommend(@NotNull HttpServletRequest request) {
+        String username = request.getHeader("username");
+        return Result.success();
+    }
 
 }
