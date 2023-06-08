@@ -9,13 +9,13 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Working {
+@ToString
+public class Favorite {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Integer id;
     @OneToOne
-    Worker worker;
+    User user;
     @OneToOne
     Movie movie;
-    String position;
 }

@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class RateController {
 
-    private RateRepository rateRepository;
-    private final RateService rateService;
+    RateRepository rateRepository;
+    RateService rateService;
 
     @Autowired
-    public RateController(RateService rateService) {
+    public void setRateService(RateService rateService) {
         this.rateService = rateService;
     }
 
@@ -40,10 +40,10 @@ public class RateController {
         return Result.success(rateRepository.findAllByUser(User.builder().name(username).build()));
     }
 
-//    TO:DO bug待修改
+    //    TO:DO bug待修改
     @PostMapping
     public Result create(@RequestBody Rate rate) {
-        return Result.success(rateService.save(rate));
+        return Result.success(rateRepository.save(rate));
     }
 
 

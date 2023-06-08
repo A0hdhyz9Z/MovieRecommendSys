@@ -18,3 +18,5 @@ spring:
     console:
       enabled: true
 
+dataInit: true
+

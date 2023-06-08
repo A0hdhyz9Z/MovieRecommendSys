@@ -20,5 +20,4 @@ public class Worker {
     String email;
     String phone;
     String address;
-    String position;
 }

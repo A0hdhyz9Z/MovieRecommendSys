@@ -17,9 +17,9 @@ import java.util.List;
 @ToString
 public class MovieDetailData {
     int total;
-    final List<MovieDetail> details = new ArrayList<>();
+    List<MovieDetail> details = new ArrayList<>();
 
-    public MovieDetailData addMovieDetail(MovieDetail ...details) {
+    public MovieDetailData addMovieDetail(MovieDetail... details) {
         this.details.addAll(Arrays.asList(details));
         return this;
     }

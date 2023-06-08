@@ -19,14 +19,17 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     // @czy 这里 Pageable pageable
     List<Movie> findByOrderByVoteAverage(Pageable pageable);
 
-    @Query("select new com.example.ex3_2_back.domain.movie.MovieDetail(m, w.name) from Movie m, Worker w, Working mw where w.position = 'director' and m.id = mw.movie.id and w.id = mw.worker.id")
+    @Query("select new com.example.ex3_2_back.domain.movie.MovieDetail(m, w.name) from Movie m, Worker w, Working mw where mw.position = 'director' and m.id = mw.movie.id and w.id = mw.worker.id")
     List<MovieDetail> findMovieDetails();
 
 
-    @Query("select new com.example.ex3_2_back.domain.movie.MovieDetail(m, w.name) from Movie m, Worker w, Working mw where w.position = 'director' and m.id = mw.movie.id and w.id = mw.worker.id")
+    @Query("select new com.example.ex3_2_back.domain.movie.MovieDetail(m, w.name) from Movie m, Worker w, Working mw where mw.position = 'director' and m.id = mw.movie.id and w.id = mw.worker.id")
     List<MovieDetail> findMovieDetails(Pageable pageable);
 
 
     @Query("select k.movie from Keyword k,TagHub t where t.id = k.tagHub.id and t.name in :tags")
     List<Movie> findMovieWithTags(List<String> tags);
+
+
+
 }

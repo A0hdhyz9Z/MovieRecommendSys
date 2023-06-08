@@ -3,6 +3,7 @@ package com.example.ex3_2_back.initializer;
 import com.example.ex3_2_back.entity.*;
 import com.example.ex3_2_back.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -88,8 +89,15 @@ public class DataSourceInitializer implements CommandLineRunner {
         this.tagHubRepository = tagHubRepository;
     }
 
+    @Value("${dataInit}")
+    boolean enabled = false;
+
     @Override
     public void run(String... args) throws Exception {
+
+        if (!enabled) {
+            return;
+        }
 
         final String[] tagStrings = new String[]{
                 "Sci-Fi",
@@ -124,7 +132,7 @@ public class DataSourceInitializer implements CommandLineRunner {
                     .originalTitle("Movie " + i)
                     .voteAverage(i * 0.01F)
                     .build();
-            var worker = Worker.builder().name("zzq").position("director").build();
+            var worker = Worker.builder().name("zzq").build();
 
             var working = Working.builder().worker(worker).movie(movie).build();
 
