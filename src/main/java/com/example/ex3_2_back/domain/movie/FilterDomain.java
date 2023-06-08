@@ -1,6 +1,5 @@
 package com.example.ex3_2_back.domain.movie;
 
-import com.example.ex3_2_back.entity.Movie;
 import lombok.*;
 
 import java.util.ArrayList;

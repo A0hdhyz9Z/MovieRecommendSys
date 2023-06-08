@@ -144,8 +144,10 @@ public class MovieController {
     public Result details(@PathVariable Integer movieId) {
         FavoriteResponseData favoriteResponseData = new FavoriteResponseData();
         favoriteResponseData.setActors(actorRepository.findActorsOfMovie(movieId));
+        var optMovie = movieRepository.findById(movieId);
         var optDirector = workerRepository.getDirectorOfMovie(movieId);
         optDirector.ifPresent(favoriteResponseData::setDirector);
+        optMovie.ifPresent(favoriteResponseData::setMovie);
         return Result.success(favoriteResponseData);
     }
 
