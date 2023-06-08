@@ -95,12 +95,12 @@ public class MovieController {
     }
 
     @PostMapping("/search")
-    public Result search(@RequestBody SearchDomain searchDomain, @RequestParam int page, @RequestParam int pageSize) {
+    public Result search(@RequestBody @NotNull SearchDomain searchDomain, @RequestParam int page, @RequestParam int pageSize) {
         return Result.success(movieRepository.findAll(new Example<>() {
             @Override
             public @NotNull Movie getProbe() {
-                var movie = searchDomain.getMovie();
-                return movie != null ? movie : Movie.builder().build();
+                return Movie.builder().originalTitle(searchDomain.getMovieName()).build();
+//                return searchDomain.getMovie();
             }
 
             @Override

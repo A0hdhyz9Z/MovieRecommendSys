@@ -14,5 +14,5 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class SearchDomain {
-    Movie movie;
+    String movieName;
 }
