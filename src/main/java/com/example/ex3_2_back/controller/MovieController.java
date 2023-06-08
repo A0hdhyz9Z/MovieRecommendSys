@@ -160,9 +160,9 @@ public class MovieController {
     }
 
     @GetMapping("/recommend")
-    public Result recommend(@NotNull HttpServletRequest request) {
+    public Result recommend(@NotNull HttpServletRequest request, @RequestParam int page, @RequestParam int pageSize) {
         String username = request.getHeader("username");
-        return Result.success(recommendRepository.findRecommendMovieOfUser(username));
+        return Result.success(recommendRepository.findRecommendMovieOfUser((username),PageRequest.of(page - 1, pageSize)));
     }
 
 }
