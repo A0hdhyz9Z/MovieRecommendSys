@@ -58,12 +58,13 @@ public class MovieRepositoryTests {
         Page<Movie> dark = movieRepository.findAll(new Example<>() {
             @Override
             public @NotNull Movie getProbe() {
-                return Movie.builder().originalTitle("Dark").build();
+                return Movie.builder().originalTitle("Ark").build();
             }
 
             @Override
             public @NotNull ExampleMatcher getMatcher() {
                 return ExampleMatcher.matching()
+                        .withIgnoreCase()
                         .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
             }

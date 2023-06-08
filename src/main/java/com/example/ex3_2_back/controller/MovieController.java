@@ -105,9 +105,10 @@ public class MovieController {
 
             @Override
             public @NotNull ExampleMatcher getMatcher() {
-                return ExampleMatcher.matchingAll()
-                        .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
-                        .withIgnoreCase();
+                return ExampleMatcher.matching()
+                        .withIgnoreCase()
+                        .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
             }
         }, PageRequest.of(page - 1, pageSize)));
     }
