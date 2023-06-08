@@ -25,6 +25,12 @@ import java.util.Optional;
 public class MovieController {
 
     UserRepository userRepository;
+    RecommendRepository recommendRepository;
+
+    @Autowired
+    public void setRecommendRepository(RecommendRepository recommendRepository) {
+        this.recommendRepository = recommendRepository;
+    }
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -154,7 +160,7 @@ public class MovieController {
     @GetMapping("/recommend")
     public Result recommend(@NotNull HttpServletRequest request) {
         String username = request.getHeader("username");
-        return Result.success();
+        return Result.success(recommendRepository.findRecommendMovieOfUser(username));
     }
 
 }
