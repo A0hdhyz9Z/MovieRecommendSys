@@ -75,7 +75,7 @@ public class MovieController {
     @GetMapping
     public Result getMovie(@RequestParam int page, @RequestParam int pageSize) {
         // return Result.success(movieService.findMovieDetails(PageRequest.of(page - 1, pageSize)));
-        return Result.success(movieRepository.findByOrderByVoteAverage(PageRequest.of(page - 1, pageSize)));
+        return Result.success(movieRepository.findByOrderByVoteAverageDesc(PageRequest.of(page - 1, pageSize)));
     }
 
     //    @GetMapping("/{id}")

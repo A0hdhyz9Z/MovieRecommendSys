@@ -16,7 +16,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     List<Movie> findByOrderByVoteAverage();
 
     // @czy 这里 Pageable pageable
-    List<Movie> findByOrderByVoteAverage(Pageable pageable);
+    List<Movie> findByOrderByVoteAverageDesc(Pageable pageable);
 
     @Query("select new com.example.ex3_2_back.domain.movie.MovieDetail(m, w.name) from Movie m, Worker w, Working mw where mw.position = 'director' and m.id = mw.movie.id and w.id = mw.worker.id")
     List<MovieDetail> findMovieDetails();
