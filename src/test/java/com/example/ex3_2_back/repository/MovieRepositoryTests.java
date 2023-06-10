@@ -24,16 +24,6 @@ public class MovieRepositoryTests {
     }
 
     @Test
-    public void test_findMovieDetails() {
-        log.info(movieRepository.findMovieDetails().toString());
-    }
-
-    @Test
-    public void test_findMovieDetails_Pageable() {
-        log.info(movieRepository.findMovieDetails(PageRequest.of(2, 10)).toString());
-    }
-
-    @Test
     public void test_findMovieWithTags() {
         movieRepository.findMovieWithTags(Arrays.asList("poem", "Sci-Fi")).forEach(movie -> log.info(movie.toString()));
     }
