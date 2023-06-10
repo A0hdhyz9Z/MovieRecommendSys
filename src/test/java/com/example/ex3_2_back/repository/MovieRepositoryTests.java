@@ -35,7 +35,7 @@ public class MovieRepositoryTests {
 
     @Test
     public void test_findMovieWithTags() {
-        movieRepository.findMovieWithTags(Arrays.asList("War", "Sci-Fi")).forEach(movie -> log.info(movie.toString()));
+        movieRepository.findMovieWithTags(Arrays.asList("poem", "Sci-Fi")).forEach(movie -> log.info(movie.toString()));
     }
 
     @Test

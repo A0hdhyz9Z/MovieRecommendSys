@@ -4,7 +4,6 @@ import com.example.ex3_2_back.domain.Result;
 import com.example.ex3_2_back.entity.Rate;
 import com.example.ex3_2_back.entity.User;
 import com.example.ex3_2_back.repository.RateRepository;
-import com.example.ex3_2_back.service.RateService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class RateController {
 
     RateRepository rateRepository;
-    RateService rateService;
-
-    @Autowired
-    public void setRateService(RateService rateService) {
-        this.rateService = rateService;
-    }
-
     @Autowired
     public void setRateRepository(RateRepository rateRepository) {
         this.rateRepository = rateRepository;

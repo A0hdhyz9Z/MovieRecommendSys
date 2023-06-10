@@ -1,15 +1,13 @@
 package com.example.ex3_2_back.controller;
 
 import com.example.ex3_2_back.domain.Result;
-import com.example.ex3_2_back.domain.movie.FavoriteResponseData;
+import com.example.ex3_2_back.domain.movie.DetailData;
 import com.example.ex3_2_back.domain.movie.FilterDomain;
-import com.example.ex3_2_back.domain.movie.MovieDetailData;
 import com.example.ex3_2_back.domain.movie.SearchDomain;
 import com.example.ex3_2_back.entity.Favorite;
 import com.example.ex3_2_back.entity.Movie;
 import com.example.ex3_2_back.entity.User;
 import com.example.ex3_2_back.repository.*;
-import com.example.ex3_2_back.service.MovieService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,13 +61,6 @@ public class MovieController {
     @Autowired
     public void setMovieRepository(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
-    }
-
-    MovieService movieService;
-
-    @Autowired
-    public void setMovieService(MovieService movieService) {
-        this.movieService = movieService;
     }
 
     @GetMapping
@@ -150,13 +141,13 @@ public class MovieController {
 
     @GetMapping("/detail/{movieId}")
     public Result details(@PathVariable Integer movieId) {
-        FavoriteResponseData favoriteResponseData = new FavoriteResponseData();
-        favoriteResponseData.setActors(actorRepository.findActorsOfMovie(movieId));
+        DetailData detailData = new DetailData();
+        detailData.setActors(actorRepository.findActorsOfMovie(movieId));
         var optMovie = movieRepository.findById(movieId);
         var optDirector = workerRepository.getDirectorOfMovie(movieId);
-        optDirector.ifPresent(favoriteResponseData::setDirector);
-        optMovie.ifPresent(favoriteResponseData::setMovie);
-        return Result.success(favoriteResponseData);
+        optDirector.ifPresent(detailData::setDirector);
+        optMovie.ifPresent(detailData::setMovie);
+        return Result.success(detailData);
     }
 
     @GetMapping("/recommend")

@@ -15,12 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class MovieDetailData {
-    int total;
-    List<MovieDetail> details = new ArrayList<>();
-
-    public MovieDetailData addMovieDetail(MovieDetail... details) {
-        this.details.addAll(Arrays.asList(details));
-        return this;
-    }
+public class DetailData {
+    List<Actor> actors;
+    Worker director;
+    Movie movie;
 }
