@@ -139,6 +139,11 @@ public class MovieController {
         return TResult.success(favoriteRepository.findFavoriteOfUser(username));
     }
 
+    @GetMapping("/favorite/pageable")
+    public TResult<Page<Movie>> getFavoritePageable(@Nullable @RequestHeader("username") String username, @RequestParam int page, @RequestParam int pageSize) {
+        return TResult.success(favoriteRepository.findFavoriteOfUser(username, PageRequest.of(page - 1, pageSize)));
+    }
+
     @PostMapping("/favorite/{movieId}")
     public Result setFavorite(@PathVariable Integer movieId, @Nullable @RequestHeader("username") String username) {
         Optional<User> optionalUser = userRepository.findByName(username);
@@ -164,23 +169,15 @@ public class MovieController {
 
     @DeleteMapping("/favorite/{movieId}")
     public Result removeFavorite(@PathVariable Integer movieId, @Nullable @RequestHeader("username") String username) {
-
         Optional<User> optionalUser = userRepository.findByName(username);
 
         if (optionalUser.isEmpty()) {
-            return Result.error("Invalid username " + username);
-        }
-
-        User user = optionalUser.get();
-        Movie movie = Movie.builder().id(movieId).build();
-
-        if (favoriteRepository.existsByUserAndMovie(user, movie)) {
-            return Result.error(String.format("用户%s已经收藏了电影%d", username, movieId));
+            return Result.error("No such user");
         }
 
         favoriteRepository.delete(Favorite.builder()
-                .user(user)
-                .movie(movie)
+                .user(optionalUser.get())
+                .movie(Movie.builder().id(movieId).build())
                 .build());
 
         return Result.success();
