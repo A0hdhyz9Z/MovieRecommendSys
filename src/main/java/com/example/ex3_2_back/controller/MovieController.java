@@ -96,8 +96,27 @@ public class MovieController {
     }
 
     @PostMapping("/search")
+    @Operation(summary = "查找电影")
     public TResult<Page<Movie>> search(@RequestBody @NotNull SearchDomain searchDomain, @RequestParam int page, @RequestParam int pageSize) {
         return TResult.success(movieRepository.findByOriginalTitleLike(searchDomain.getMovieName(), PageRequest.of(page - 1, pageSize)));
+    }
+
+    @PostMapping("/search2")
+    @Operation(summary = "查找电影2")
+    public TResult<Page<Movie>> search2(@RequestBody @NotNull SearchDomain searchDomain, @RequestParam int page, @RequestParam int pageSize) {
+        return TResult.success(movieRepository.findAll(new Example<Movie>() {
+            @NotNull
+            @Override
+            public Movie getProbe() {
+                return Movie.builder().originalTitle(searchDomain.getMovieName()).build();
+            }
+
+            @NotNull
+            @Override
+            public ExampleMatcher getMatcher() {
+                return null;
+            }
+        }, PageRequest.of(page - 1, pageSize)));
     }
 
     @PostMapping("/filter/tags")
