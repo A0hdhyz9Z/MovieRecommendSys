@@ -225,6 +225,7 @@ public class MovieController {
             return TResult.success(detailData);
         }
         User user = optionalUser.get();
+        detailData.setUser(user);
 
         detailData.setFavorite(favoriteRepository.existsByUserAndMovie(user, movie));
 
