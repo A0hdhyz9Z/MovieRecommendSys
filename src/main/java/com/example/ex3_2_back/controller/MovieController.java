@@ -138,8 +138,7 @@ public class MovieController {
     }
 
     @PostMapping("/favorite/{movieId}")
-    public Result setFavorite(@NotNull HttpServletRequest request, @PathVariable Integer movieId) {
-        String username = request.getHeader("username");
+    public Result setFavorite( @PathVariable Integer movieId,@Nullable @RequestHeader(name = "username", required = false) String username) {
         Optional<User> optionalUser = userRepository.findByName(username);
 
         if (optionalUser.isEmpty()) {
@@ -162,9 +161,7 @@ public class MovieController {
     }
 
     @DeleteMapping("/favorite/{movieId}")
-    public Result removeFavorite(@NotNull HttpServletRequest request, @PathVariable Integer movieId) {
-
-        String username = request.getHeader("username");
+    public Result removeFavorite(@PathVariable Integer movieId, @Nullable @RequestHeader(name = "username", required = false) String username) {
 
         Optional<User> optionalUser = userRepository.findByName(username);
 
@@ -189,7 +186,7 @@ public class MovieController {
 
     @GetMapping("/detail/{movieId}")
     @Operation(summary = "电影的详细信息")
-    public TResult<DetailData> detail(@NotNull HttpServletRequest request, @PathVariable Integer movieId, @Nullable @RequestHeader(name = "username", required = false) String username) {
+    public TResult<DetailData> detail(@PathVariable Integer movieId, @Nullable @RequestHeader(name = "username", required = false) String username) {
         DetailData detailData = new DetailData();
         detailData.setActors(actorRepository.findActorsOfMovie(movieId));
         var optMovie = movieRepository.findById(movieId);
@@ -207,7 +204,7 @@ public class MovieController {
 
     @GetMapping("/recommend")
     @Parameter(name = "")
-    public Result recommend(@NotNull HttpServletRequest request, @Nullable @RequestHeader(name = "username", required = false) String username) {
+    public Result recommend(@Nullable @RequestHeader(name = "username", required = false) String username) {
         return Result.success(recommendRepository.findRecommendMovieOfUser(username));
     }
 

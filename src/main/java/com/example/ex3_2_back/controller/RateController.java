@@ -1,6 +1,7 @@
 package com.example.ex3_2_back.controller;
 
 import com.example.ex3_2_back.domain.Result;
+import com.example.ex3_2_back.domain.TResult;
 import com.example.ex3_2_back.entity.Rate;
 import com.example.ex3_2_back.entity.User;
 import com.example.ex3_2_back.repository.RateRepository;
@@ -11,6 +12,9 @@ import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/rate")
 @Slf4j
@@ -18,19 +22,20 @@ import org.springframework.web.bind.annotation.*;
 public class RateController {
 
     RateRepository rateRepository;
+
     @Autowired
     public void setRateRepository(RateRepository rateRepository) {
         this.rateRepository = rateRepository;
     }
 
     @GetMapping("/{id}")
-    public Result findOne(@PathVariable Integer id) {
-        return Result.success(rateRepository.findById(id));
+    public TResult<Optional<Rate>> findOne(@PathVariable Integer id) {
+        return TResult.success(rateRepository.findById(id));
     }
 
     @GetMapping
-    public Result findAllOfUser(HttpServletRequest request, @Nullable @RequestHeader(name = "username", required = false) String username) {
-        return Result.success(rateRepository.findAllByUser(User.builder().name(username).build()));
+    public TResult<List<Rate>> findAllOfUser(@Nullable @RequestHeader(name = "username", required = false) String username) {
+        return TResult.success(rateRepository.findAllByUser(User.builder().name(username).build()));
     }
 
     //    TO:DO bug待修改
