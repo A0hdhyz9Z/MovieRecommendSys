@@ -75,5 +75,9 @@ public class MovieRepositoryTests {
         dark.getContent().forEach(movie -> log.info(movie.getOriginalTitle()));
     }
 
+    @Test
+    public void test_incrementSeenCount() {
+        movieRepository.incrementSeenCount(862);
+    }
 
 }
