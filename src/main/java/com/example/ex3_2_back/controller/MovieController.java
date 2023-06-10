@@ -8,6 +8,7 @@ import com.example.ex3_2_back.entity.Favorite;
 import com.example.ex3_2_back.entity.Movie;
 import com.example.ex3_2_back.entity.User;
 import com.example.ex3_2_back.repository.*;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +75,7 @@ public class MovieController {
     @GetMapping
     public Result getMovie(@RequestParam int page, @RequestParam int pageSize) {
         // return Result.success(movieService.findMovieDetails(PageRequest.of(page - 1, pageSize)));
-        return Result.success(movieRepository.findByOrderByVoteAverage(PageRequest.of(page - 1, pageSize)));
+        return Result.success(movieRepository.findByOrderByVoteAverageDesc(PageRequest.of(page - 1, pageSize)));
     }
 
     //    @GetMapping("/{id}")
@@ -192,6 +193,7 @@ public class MovieController {
     }
 
     @GetMapping("/recommend")
+    @Parameter(name = "")
     public Result recommend(@NotNull HttpServletRequest request) {
         String username = request.getHeader("username");
         return Result.success(recommendRepository.findRecommendMovieOfUser(username));

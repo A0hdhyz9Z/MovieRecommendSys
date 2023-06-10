@@ -10,6 +10,6 @@ springdoc:
   api-docs:
     path: /v3/api-docs
   group-configs:
-    - group: 'hyc'
+    - group: 'zzq'
       paths-to-match: '/**'
       packages-to-scan: com.example.ex3_2_back

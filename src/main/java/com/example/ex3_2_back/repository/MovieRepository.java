@@ -1,6 +1,8 @@
 package com.example.ex3_2_back.repository;
 
 import com.example.ex3_2_back.entity.Movie;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,15 +14,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@RepositoryRestResource(path = "repo-movie")
+@RepositoryRestResource(path = "MovieRepository")
+@Tag(name = "数据库Movie接口")
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
     List<Movie> findByOrderByVoteAverage();
 
     @RestResource(path ="findByOrderByVoteAverage-Pageable" )
-    // @czy 这里 Pageable pageable
+    @Operation(summary = "通过评分排序电影（分页）")
     Page<Movie> findByOrderByVoteAverage(Pageable pageable);
 
+    @RestResource(path ="findByOrderByVoteAverageDesc-Pageable" )
+    @Operation(summary = "通过评分排序电影（降序，分页）")
+    Page<Movie> findByOrderByVoteAverageDesc(Pageable pageable);
 
+    @Operation(summary = "通过评分排序电影")
     @Query("select k.movie from Keyword k,TagHub t where t.id = k.tagHub.id and t.name in :tags")
     List<Movie> findMovieWithTags(List<String> tags);
 
@@ -28,9 +35,11 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     @RestResource(path = "findMovieWithTags-Pageable")
     Page<Movie> findMovieWithTags(List<String> tags, Pageable pageable);
 
+    @Operation(summary = "增加浏览次数")
     @Transactional
     @Modifying
     @Query("UPDATE Movie m SET m.seenCount = m.seenCount + 1 WHERE m.id = :movieId")
+    @RestResource(path = "incrementSeenCount")
     void incrementSeenCount(Integer movieId);
 
     @Query("select gm.movie from GenreHub g, Genre gm where g.id = gm.genreHub.id and g.name in :genres")

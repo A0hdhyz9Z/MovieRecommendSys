@@ -31,6 +31,8 @@ public class Movie {
     Float voteAverage;
     Integer voteCount;
     String overview;
-    Integer seenCount ;
+    Integer seenCount;
+    String companyName;
+    String countryName;
 }
 

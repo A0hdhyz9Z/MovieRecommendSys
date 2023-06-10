@@ -1,5 +1,6 @@
 package com.example.ex3_2_back.entity;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
