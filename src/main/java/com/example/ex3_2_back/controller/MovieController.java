@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -79,8 +80,7 @@ public class MovieController {
         return TResult.success(movieRepository.findByOrderByVoteAverageDesc(PageRequest.of(page - 1, pageSize)));
     }
 
-    //    @GetMapping("/{id}")
-    // /movie/123
+    @GetMapping("/one/{id}")
     public TResult<Optional<Movie>> one(@PathVariable Integer id) {
         return TResult.success(movieRepository.findById(id));
     }
@@ -95,6 +95,7 @@ public class MovieController {
         return Result.success();
     }
 
+    @Deprecated
     @PostMapping("/search")
     @Operation(summary = "查找电影1")
     public TResult<Page<Movie>> search(@RequestBody @NotNull SearchDomain searchDomain, @RequestParam int page, @RequestParam int pageSize) {
@@ -132,13 +133,12 @@ public class MovieController {
     }
 
     @GetMapping("/favorite")
-    public Result getFavorite(@NotNull HttpServletRequest request) {
-        String username = request.getHeader("username");
-        return Result.success(favoriteRepository.findFavoriteOfUser(username));
+    public TResult<List<Movie>> getFavorite(@Nullable @RequestHeader("username") String username) {
+        return TResult.success(favoriteRepository.findFavoriteOfUser(username));
     }
 
     @PostMapping("/favorite/{movieId}")
-    public Result setFavorite( @PathVariable Integer movieId,@Nullable @RequestHeader(name = "username", required = false) String username) {
+    public Result setFavorite(@PathVariable Integer movieId, @Nullable @RequestHeader("username") String username) {
         Optional<User> optionalUser = userRepository.findByName(username);
 
         if (optionalUser.isEmpty()) {
@@ -161,7 +161,7 @@ public class MovieController {
     }
 
     @DeleteMapping("/favorite/{movieId}")
-    public Result removeFavorite(@PathVariable Integer movieId, @Nullable @RequestHeader(name = "username", required = false) String username) {
+    public Result removeFavorite(@PathVariable Integer movieId, @Nullable @RequestHeader("username") String username) {
 
         Optional<User> optionalUser = userRepository.findByName(username);
 
