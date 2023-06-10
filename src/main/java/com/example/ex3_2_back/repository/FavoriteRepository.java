@@ -30,4 +30,6 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
 
     Optional<Favorite> findByUserAndMovie(User user, Movie movie);
 
+    void deleteByUserAndMovie(User user, Movie movie);
+
 }
