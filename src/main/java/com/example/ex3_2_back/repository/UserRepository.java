@@ -13,6 +13,8 @@ import java.util.Optional;
 @RepositoryRestResource(path = "UserRepository")
 @Tag(name = "数据库User接口")
 public interface UserRepository extends JpaRepository<User, String> {
+    @Operation(summary = "通过用户名查找")
+    @RestResource(path = "findByName")
     Optional<User> findByName(String name);
 
     @Operation(summary = "通过用户名和密码查找出一个用户")
@@ -27,5 +29,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     @RestResource(path = "existsByNameAndPassword")
     boolean existsByNameAndPassword(String name, String password);
 
+    @Operation(summary = "通过用户名删除用户")
+    @RestResource(path = "deleteByName")
     void deleteByName(String name);
 }

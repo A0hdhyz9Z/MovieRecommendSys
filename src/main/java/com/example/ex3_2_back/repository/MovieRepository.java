@@ -27,12 +27,15 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     @Operation(summary = "通过评分排序电影（降序，分页）")
     Page<Movie> findByOrderByVoteAverageDesc(Pageable pageable);
 
-    @Operation(summary = "通过评分排序电影")
+    @Operation(summary = "通过评分排序电影-不分页")
+    @RestResource(path = "findMovieWithTags")
     @Query("select k.movie from Keyword k,TagHub t where t.id = k.tagHub.id and t.name in :tags")
     List<Movie> findMovieWithTags(List<String> tags);
 
+
     @Query("select k.movie from Keyword k,TagHub t where t.id = k.tagHub.id and t.name in :tags")
     @RestResource(path = "findMovieWithTags-Pageable")
+    @Operation(summary = "通过评分排序电影-分页")
     Page<Movie> findMovieWithTags(List<String> tags, Pageable pageable);
 
     @Operation(summary = "增加浏览次数")
@@ -42,16 +45,20 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     @RestResource(path = "incrementSeenCount")
     void incrementSeenCount(Integer movieId);
 
+    @Operation(summary = "根据分类查询-不分页")
     @Query("select gm.movie from GenreHub g, Genre gm where g.id = gm.genreHub.id and g.name in :genres")
     List<Movie> findMovieWithGenres(List<String> genres);
 
     @Query("select gm.movie from GenreHub g, Genre gm where g.id = gm.genreHub.id and g.name in :genres")
     @RestResource(path = "findMovieWithGenres-Pageable")
+    @Operation(summary = "根据分类查询-分页")
     Page<Movie> findMovieWithGenres(List<String> genres, Pageable pageable);
 
     @RestResource(path = "findByOriginalTitleLike(String originalTitle, Pageable pageable)")
+    @Operation(summary = "通过电影名搜索-分页")
     Page<Movie> findByOriginalTitleLike(String originalTitle, Pageable pageable);
 
-
+    @RestResource(path = "findByOriginalTitleLike(String originalTitle)")
+    @Operation(summary = "通过电影名搜索-不分页")
     List<Movie> findByOriginalTitleLike(String originalTitle);
 }
