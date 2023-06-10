@@ -26,7 +26,7 @@ RUN cd /home
 
 
 
-COPY ./build/libs/demo-0.0.1-SNAPSHOT.jar /home/demo-0.0.1-SNAPSHOT.jar
+COPY ./target/demo-0.0.1-SNAPSHOT.jar /home/demo-0.0.1-SNAPSHOT.jar
 RUN ls -l /home
 
 CMD ["java", "-jar", "/home/demo-0.0.1-SNAPSHOT.jar"]
