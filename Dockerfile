@@ -6,7 +6,7 @@ RUN chmod 755 /home/ -R
 # timezone
 RUN echo 'Asia/Shanghai' >> /etc/timezone
 
-EXPOSE 80
+EXPOSE 8080
 
 # jdk 17
 RUN yum -y install wget
