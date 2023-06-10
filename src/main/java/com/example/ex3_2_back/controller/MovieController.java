@@ -149,7 +149,11 @@ public class MovieController {
     }
 
     @GetMapping("/favorite/pageable")
-    public TResult<Page<Movie>> getFavoritePageable(@Nullable @RequestHeader("username") String username, @RequestParam int page, @RequestParam int pageSize) {
+    public TResult<Page<Movie>> getFavoritePageable(
+            @Nullable @RequestHeader("username") String username,
+            @Schema(defaultValue = "1") @RequestParam int page,
+            @Schema(defaultValue = "10") @RequestParam int pageSize
+    ) {
         return TResult.success(favoriteRepository.findFavoriteOfUser(username, PageRequest.of(page - 1, pageSize)));
     }
 
@@ -218,7 +222,7 @@ public class MovieController {
 
         Optional<User> optionalUser = userRepository.findByName(username);
         if (optionalUser.isEmpty()) {
-            return TResult.success();
+            return TResult.success(detailData);
         }
         User user = optionalUser.get();
 
@@ -234,7 +238,11 @@ public class MovieController {
     }
 
     @GetMapping("/recommend")
-    public TResult<Page<Movie>> recommend(@Nullable @RequestHeader("username") String username, @RequestParam int page, @RequestParam int pageSize) {
+    public TResult<Page<Movie>> recommend(
+            @Schema(defaultValue = "862") @Nullable @RequestHeader("username") String username,
+            @Schema(defaultValue = "1") @RequestParam int page,
+            @Schema(defaultValue = "10") @RequestParam int pageSize
+    ) {
         return TResult.success(recommendRepository.findRecommendMovieOfUser(username, PageRequest.of(page - 1, pageSize)));
     }
 
