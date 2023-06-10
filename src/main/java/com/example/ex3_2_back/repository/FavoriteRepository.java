@@ -4,6 +4,7 @@ import com.example.ex3_2_back.entity.Favorite;
 import com.example.ex3_2_back.entity.Movie;
 import com.example.ex3_2_back.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,6 +31,7 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
 
     Optional<Favorite> findByUserAndMovie(User user, Movie movie);
 
+    @Transactional
     void deleteByUserAndMovie(User user, Movie movie);
 
 }
