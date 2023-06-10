@@ -13,7 +13,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class LoginDomain {
     @NotBlank
-    @Schema(description = "password", defaultValue = "15", requiredMode = Schema.RequiredMode.AUTO)
+    @Schema(description = "username", defaultValue = "15", requiredMode = Schema.RequiredMode.AUTO)
     private String username;
     @NotBlank
     @Schema(description = "password", defaultValue = "15", requiredMode = Schema.RequiredMode.AUTO)

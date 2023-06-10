@@ -10,7 +10,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 import java.util.Optional;
 
-@RepositoryRestResource(path = "repo-worker")
+@RepositoryRestResource(path = "WorkerRepository")
 @Tag(name = "获取工作人员")
 public interface WorkerRepository extends JpaRepository<Worker, Integer> {
     @Query("select w.worker from Working w where w.position = 'director' and w.movie.id = :movieId")
