@@ -18,7 +18,9 @@ public class RecommendRepositoryTests {
     }
 
     @Test
-    public void test() {
-        log.info(recommendRepository.findRecommendMovieOfUser(("3".toString()), Pageable.ofSize(10)).toString());
+    public void test_findRecommendMovieOfUser() {
+        var l=recommendRepository.findRecommendMovieOfUser("15");
+        log.info(String.valueOf(l.size()));
+        log.info(l.toString());
     }
 }

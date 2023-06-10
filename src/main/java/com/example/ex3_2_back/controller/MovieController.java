@@ -11,19 +11,19 @@ import com.example.ex3_2_back.entity.User;
 import com.example.ex3_2_back.repository.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/movie")
+@Tag(name = "MovieController")
 public class MovieController {
 
     UserRepository userRepository;
@@ -75,15 +75,14 @@ public class MovieController {
     }
 
     @GetMapping
-    public Result getMovie(@RequestParam int page, @RequestParam int pageSize) {
-        // return Result.success(movieService.findMovieDetails(PageRequest.of(page - 1, pageSize)));
-        return Result.success(movieRepository.findByOrderByVoteAverageDesc(PageRequest.of(page - 1, pageSize)));
+    public TResult<Page<Movie>> getMovie(@RequestParam int page, @RequestParam int pageSize) {
+        return TResult.success(movieRepository.findByOrderByVoteAverageDesc(PageRequest.of(page - 1, pageSize)));
     }
 
     //    @GetMapping("/{id}")
     // /movie/123
-    public Result one(@PathVariable Integer id) {
-        return Result.success(movieRepository.findById(id));
+    public TResult<Optional<Movie>> one(@PathVariable Integer id) {
+        return TResult.success(movieRepository.findById(id));
     }
 
     @PostMapping
@@ -97,22 +96,8 @@ public class MovieController {
     }
 
     @PostMapping("/search")
-    public Result search(@RequestBody @NotNull SearchDomain searchDomain, @RequestParam int page, @RequestParam int pageSize) {
-        return Result.success(movieRepository.findAll(new Example<>() {
-            @Override
-            public @NotNull Movie getProbe() {
-                return Movie.builder().originalTitle(searchDomain.getMovieName()).build();
-//                return searchDomain.getMovie();
-            }
-
-            @Override
-            public @NotNull ExampleMatcher getMatcher() {
-                return ExampleMatcher.matching()
-                        .withIgnoreCase()
-                        .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
-
-            }
-        }, PageRequest.of(page - 1, pageSize)));
+    public TResult<Page<Movie>> search(@RequestBody @NotNull SearchDomain searchDomain, @RequestParam int page, @RequestParam int pageSize) {
+        return TResult.success(movieRepository.findByOriginalTitleLike(searchDomain.getMovieName(), PageRequest.of(page - 1, pageSize)));
     }
 
     @PostMapping("/filter/tags")
@@ -183,7 +168,7 @@ public class MovieController {
 
     @GetMapping("/detail/{movieId}")
     @Operation(summary = "电影的详细信息")
-    public TResult<DetailData> detail(@NotNull HttpServletRequest request, @PathVariable Integer movieId) {
+    public TResult<DetailData> detail(@NotNull HttpServletRequest request, @PathVariable Integer movieId, @Nullable @RequestHeader(name = "username", required = false) String username) {
         DetailData detailData = new DetailData();
         detailData.setActors(actorRepository.findActorsOfMovie(movieId));
         var optMovie = movieRepository.findById(movieId);
@@ -192,7 +177,6 @@ public class MovieController {
         optMovie.ifPresent(detailData::setMovie);
         optMovie.ifPresent(movie -> movieRepository.incrementSeenCount(movie.getId()));
         detailData.setGenreHubs(genreHubRepository.findGenreHubOfMovie(movieId));
-        String username = request.getHeader("username");
         userRepository.findByName(username).ifPresent(user -> {
             detailData.setUser(user);
             optMovie.ifPresent(movie -> detailData.setFavorite(favoriteRepository.existsByUserAndMovie(user, movie)));
@@ -202,8 +186,7 @@ public class MovieController {
 
     @GetMapping("/recommend")
     @Parameter(name = "")
-    public Result recommend(@NotNull HttpServletRequest request) {
-        String username = request.getHeader("username");
+    public Result recommend(@NotNull HttpServletRequest request, @Nullable @RequestHeader(name = "username", required = false) String username) {
         return Result.success(recommendRepository.findRecommendMovieOfUser(username));
     }
 

@@ -15,15 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @RepositoryRestResource(path = "MovieRepository")
-@Tag(name = "数据库Movie接口")
+@Tag(name = "MovieRepository")
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
     List<Movie> findByOrderByVoteAverage();
 
-    @RestResource(path ="findByOrderByVoteAverage-Pageable" )
+    @RestResource(path = "findByOrderByVoteAverage-Pageable")
     @Operation(summary = "通过评分排序电影（分页）")
     Page<Movie> findByOrderByVoteAverage(Pageable pageable);
 
-    @RestResource(path ="findByOrderByVoteAverageDesc-Pageable" )
+    @RestResource(path = "findByOrderByVoteAverageDesc-Pageable")
     @Operation(summary = "通过评分排序电影（降序，分页）")
     Page<Movie> findByOrderByVoteAverageDesc(Pageable pageable);
 
@@ -48,4 +48,10 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     @Query("select gm.movie from GenreHub g, Genre gm where g.id = gm.genreHub.id and g.name in :genres")
     @RestResource(path = "findMovieWithGenres-Pageable")
     Page<Movie> findMovieWithGenres(List<String> genres, Pageable pageable);
+
+    @RestResource(path = "findByOriginalTitleLike(String originalTitle, Pageable pageable)")
+    Page<Movie> findByOriginalTitleLike(String originalTitle, Pageable pageable);
+
+
+    List<Movie> findByOriginalTitleLike(String originalTitle);
 }

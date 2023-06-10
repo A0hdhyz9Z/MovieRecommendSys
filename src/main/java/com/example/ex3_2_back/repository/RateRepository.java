@@ -10,7 +10,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.List;
 
 @RepositoryRestResource(path = "RateRepository")
-@Tag(name = "数据库Rate接口")
+@Tag(name = "RateRepository")
 public interface RateRepository extends JpaRepository<Rate, Integer> {
     List<Rate> findAllByUser(User user);
 }
