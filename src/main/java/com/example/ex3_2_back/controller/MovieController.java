@@ -114,7 +114,9 @@ public class MovieController {
             @NotNull
             @Override
             public ExampleMatcher getMatcher() {
-                return null;
+                return ExampleMatcher.matching()
+                        .withIgnoreCase()
+                        .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
             }
         }, PageRequest.of(page - 1, pageSize)));
     }
