@@ -21,6 +21,7 @@ public class Movie {
     Boolean adult;
     Integer budget;
     String homepage;
+    @Schema(defaultValue = "功夫熊猫")
     String originalLanguage;
     String originalTitle;
     Float popularity;
@@ -35,7 +36,9 @@ public class Movie {
     Integer voteCount;
     String overview;
     Integer seenCount;
+    @Schema(defaultValue = "不知道什么公司")
     String companyName;
+    @Schema(defaultValue = "美国")
     String countryName;
 }
 

@@ -30,6 +30,8 @@ public class User {
     @Email
     @Schema(defaultValue = "1804924578@qq.com")
     String email;
+    @Schema(defaultValue = "18810393672")
     String phone;
+    @Schema(defaultValue = "北京市海淀区北京交通大学")
     String address;
 }
