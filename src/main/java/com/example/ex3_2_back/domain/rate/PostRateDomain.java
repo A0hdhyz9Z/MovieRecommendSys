@@ -1,6 +1,5 @@
 package com.example.ex3_2_back.domain.rate;
 
-import com.example.ex3_2_back.entity.Rate;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -12,5 +11,6 @@ import lombok.*;
 @ToString
 @Schema(description = "PostRateDomain")
 public class PostRateDomain {
+    @Schema(defaultValue = "5")
     Float rating;
 }

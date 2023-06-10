@@ -149,7 +149,11 @@ public class MovieController {
     }
 
     @GetMapping("/favorite/pageable")
-    public TResult<Page<Movie>> getFavoritePageable(@Nullable @RequestHeader("username") String username, @RequestParam int page, @RequestParam int pageSize) {
+    public TResult<Page<Movie>> getFavoritePageable(
+            @Nullable @RequestHeader("username") String username,
+            @Schema(defaultValue = "1") @RequestParam int page,
+            @Schema(defaultValue = "10") @RequestParam int pageSize
+    ) {
         return TResult.success(favoriteRepository.findFavoriteOfUser(username, PageRequest.of(page - 1, pageSize)));
     }
 
@@ -181,16 +185,24 @@ public class MovieController {
             @Schema(defaultValue = "862") @PathVariable Integer movieId,
             @Schema(defaultValue = "15") @Nullable @RequestHeader("username") String username
     ) {
-        Optional<User> optionalUser = userRepository.findByName(username);
 
+        Optional<User> optionalUser = userRepository.findByName(username);
         if (optionalUser.isEmpty()) {
             return Result.error("No such user");
         }
+        User user = optionalUser.get();
 
-        favoriteRepository.delete(Favorite.builder()
-                .user(optionalUser.get())
-                .movie(Movie.builder().id(movieId).build())
-                .build());
+        Optional<Movie> optionalMovie = movieRepository.findById(movieId);
+        if (optionalMovie.isEmpty()) {
+            return Result.error("No such movie " + movieId);
+        }
+        Movie movie = optionalMovie.get();
+
+        if (!favoriteRepository.existsByUserAndMovie(user, movie)) {
+            return Result.error("User " + username + " does not favor movie " + movieId);
+        }
+
+        favoriteRepository.deleteByUserAndMovie(user, movie);
 
         return Result.success();
     }
@@ -218,9 +230,10 @@ public class MovieController {
 
         Optional<User> optionalUser = userRepository.findByName(username);
         if (optionalUser.isEmpty()) {
-            return TResult.success();
+            return TResult.success(detailData);
         }
         User user = optionalUser.get();
+        detailData.setUser(user);
 
         detailData.setFavorite(favoriteRepository.existsByUserAndMovie(user, movie));
 
@@ -234,7 +247,11 @@ public class MovieController {
     }
 
     @GetMapping("/recommend")
-    public TResult<Page<Movie>> recommend(@Nullable @RequestHeader("username") String username, @RequestParam int page, @RequestParam int pageSize) {
+    public TResult<Page<Movie>> recommend(
+            @Schema(defaultValue = "862") @Nullable @RequestHeader("username") String username,
+            @Schema(defaultValue = "1") @RequestParam int page,
+            @Schema(defaultValue = "10") @RequestParam int pageSize
+    ) {
         return TResult.success(recommendRepository.findRecommendMovieOfUser(username, PageRequest.of(page - 1, pageSize)));
     }
 

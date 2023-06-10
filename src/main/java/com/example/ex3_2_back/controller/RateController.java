@@ -60,7 +60,10 @@ public class RateController {
 
     //    TO:DO bug待修改
     @PostMapping("/{movieId}")
-    public Result postRate(@Schema(defaultValue = "15") @RequestHeader("username") String username, @Schema(defaultValue = "862") @PathVariable Integer movieId, @NotNull @RequestBody PostRateDomain postRateDomain) {
+    public Result postRate(
+            @Schema(defaultValue = "15") @RequestHeader("username") String username,
+            @Schema(defaultValue = "862") @PathVariable Integer movieId,
+            @NotNull @RequestBody PostRateDomain postRateDomain) {
 
         Optional<User> optionalUser = userRepository.findByName(username);
         if (optionalUser.isEmpty()) {
@@ -77,7 +80,7 @@ public class RateController {
         if (rateRepository.existsByUserAndMovie(user, movie)) {
             return Result.error("user " + username + " already rated " + movieId);
         }
-        rateRepository.save(Rate.builder().user(user).movie(movie).build());
+        rateRepository.save(Rate.builder().user(user).movie(movie).rating(postRateDomain.getRating()).build());
 
         return Result.success();
     }
