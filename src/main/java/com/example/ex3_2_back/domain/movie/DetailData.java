@@ -19,5 +19,6 @@ public class DetailData {
     Movie movie;
     List<GenreHub> genreHubs;
     User user;
-    boolean favorite;
+    Boolean favorite;
+    Float rating;
 }

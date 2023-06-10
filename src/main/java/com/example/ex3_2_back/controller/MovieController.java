@@ -7,10 +7,12 @@ import com.example.ex3_2_back.domain.movie.FilterDomain;
 import com.example.ex3_2_back.domain.movie.SearchDomain;
 import com.example.ex3_2_back.entity.Favorite;
 import com.example.ex3_2_back.entity.Movie;
+import com.example.ex3_2_back.entity.Rate;
 import com.example.ex3_2_back.entity.User;
 import com.example.ex3_2_back.repository.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -33,6 +35,13 @@ public class MovieController {
     RecommendRepository recommendRepository;
 
     GenreHubRepository genreHubRepository;
+
+    RateRepository rateRepository;
+
+    @Autowired
+    public void setRateRepository(RateRepository rateRepository) {
+        this.rateRepository = rateRepository;
+    }
 
     @Autowired
     public void setGenreHubRepository(GenreHubRepository genreHubRepository) {
@@ -168,7 +177,10 @@ public class MovieController {
     }
 
     @DeleteMapping("/favorite/{movieId}")
-    public Result removeFavorite(@PathVariable Integer movieId, @Nullable @RequestHeader("username") String username) {
+    public Result removeFavorite(
+            @Schema(defaultValue = "862") @PathVariable Integer movieId,
+            @Schema(defaultValue = "15") @Nullable @RequestHeader("username") String username
+    ) {
         Optional<User> optionalUser = userRepository.findByName(username);
 
         if (optionalUser.isEmpty()) {
@@ -185,26 +197,45 @@ public class MovieController {
 
     @GetMapping("/detail/{movieId}")
     @Operation(summary = "电影的详细信息")
-    public TResult<DetailData> detail(@PathVariable Integer movieId, @Nullable @RequestHeader(name = "username", required = false) String username) {
+    public TResult<DetailData> detail(
+            @Schema(defaultValue = "862") @PathVariable Integer movieId,
+            @Schema(defaultValue = "15") @Nullable @RequestHeader(name = "username", required = false) String username
+    ) {
+
         DetailData detailData = new DetailData();
+
+        Optional<Movie> optionalMovie = movieRepository.findById(movieId);
+        if (optionalMovie.isEmpty()) {
+            return TResult.error("No such movie " + movieId);
+        }
+        Movie movie = optionalMovie.get();
+        detailData.setMovie(movie);
+
         detailData.setActors(actorRepository.findActorsOfMovie(movieId));
-        var optMovie = movieRepository.findById(movieId);
-        var optDirector = workerRepository.getDirectorOfMovie(movieId);
-        optDirector.ifPresent(detailData::setDirector);
-        optMovie.ifPresent(detailData::setMovie);
-        optMovie.ifPresent(movie -> movieRepository.incrementSeenCount(movie.getId()));
+
+
         detailData.setGenreHubs(genreHubRepository.findGenreHubOfMovie(movieId));
-        userRepository.findByName(username).ifPresent(user -> {
-            detailData.setUser(user);
-            optMovie.ifPresent(movie -> detailData.setFavorite(favoriteRepository.existsByUserAndMovie(user, movie)));
-        });
+
+        Optional<User> optionalUser = userRepository.findByName(username);
+        if (optionalUser.isEmpty()) {
+            return TResult.success();
+        }
+        User user = optionalUser.get();
+
+        detailData.setFavorite(favoriteRepository.existsByUserAndMovie(user, movie));
+
+        Optional<Rate> optionalRate = rateRepository.findByUserAndMovie(user, movie);
+        if (optionalRate.isPresent()) {
+            Rate rate = optionalRate.get();
+            detailData.setRating(rate.getRating());
+        }
+
         return TResult.success(detailData);
     }
 
     @GetMapping("/recommend")
-    @Parameter(name = "")
-    public Result recommend(@Nullable @RequestHeader(name = "username", required = false) String username) {
-        return Result.success(recommendRepository.findRecommendMovieOfUser(username));
+    public TResult<Page<Movie>> recommend(@Nullable @RequestHeader("username") String username, @RequestParam int page, @RequestParam int pageSize) {
+        return TResult.success(recommendRepository.findRecommendMovieOfUser(username, PageRequest.of(page - 1, pageSize)));
     }
 
 }
