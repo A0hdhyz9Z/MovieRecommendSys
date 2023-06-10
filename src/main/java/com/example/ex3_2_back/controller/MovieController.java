@@ -26,6 +26,13 @@ public class MovieController {
     UserRepository userRepository;
     RecommendRepository recommendRepository;
 
+    GenreHubRepository genreHubRepository;
+
+    @Autowired
+    public void setGenreHubRepository(GenreHubRepository genreHubRepository) {
+        this.genreHubRepository = genreHubRepository;
+    }
+
     @Autowired
     public void setRecommendRepository(RecommendRepository recommendRepository) {
         this.recommendRepository = recommendRepository;
@@ -105,9 +112,14 @@ public class MovieController {
         }, PageRequest.of(page - 1, pageSize)));
     }
 
-    @PostMapping("/filter")
-    public Result filter(@RequestBody @NotNull FilterDomain filterDomain, @RequestParam int page, @RequestParam int pageSize) {
+    @PostMapping("/filter/tags")
+    public Result filterWithTags(@RequestBody @NotNull FilterDomain filterDomain, @RequestParam int page, @RequestParam int pageSize) {
         return Result.success(movieRepository.findMovieWithTags(filterDomain.getTags(), PageRequest.of(page - 1, pageSize)));
+    }
+
+    @PostMapping("/filter/genres")
+    public Result filterWithGenre(@RequestBody @NotNull FilterDomain filterDomain, @RequestParam int page, @RequestParam int pageSize) {
+        return Result.success(movieRepository.findMovieWithGenres(filterDomain.getGenres(), PageRequest.of(page - 1, pageSize)));
     }
 
     @GetMapping("/favorite")
@@ -140,8 +152,34 @@ public class MovieController {
         return Result.success();
     }
 
+    @DeleteMapping("/favorite/{movieId}")
+    public Result removeFavorite(@NotNull HttpServletRequest request, @PathVariable Integer movieId) {
+
+        String username = request.getHeader("username");
+
+        Optional<User> optionalUser = userRepository.findByName(username);
+
+        if (optionalUser.isEmpty()) {
+            return Result.error("Invalid username " + username);
+        }
+
+        User user = optionalUser.get();
+        Movie movie = Movie.builder().id(movieId).build();
+
+        if (favoriteRepository.existsByUserAndMovie(user, movie)) {
+            return Result.error(String.format("用户%s已经收藏了电影%d", username, movieId));
+        }
+
+        favoriteRepository.delete(Favorite.builder()
+                .user(user)
+                .movie(movie)
+                .build());
+
+        return Result.success();
+    }
+
     @GetMapping("/detail/{movieId}")
-    public Result details(@PathVariable Integer movieId) {
+    public Result detail(@PathVariable Integer movieId) {
         DetailData detailData = new DetailData();
         detailData.setActors(actorRepository.findActorsOfMovie(movieId));
         var optMovie = movieRepository.findById(movieId);
@@ -149,13 +187,13 @@ public class MovieController {
         optDirector.ifPresent(detailData::setDirector);
         optMovie.ifPresent(detailData::setMovie);
         optMovie.ifPresent(movie -> movieRepository.incrementSeenCount(movie.getId()));
+        detailData.setGenreHubs(genreHubRepository.findGenreHubOfMovie(movieId));
         return Result.success(detailData);
     }
 
     @GetMapping("/recommend")
     public Result recommend(@NotNull HttpServletRequest request) {
         String username = request.getHeader("username");
-//        return Result.success(recommendRepository.findRecommendMovieOfUser(username, PageRequest.of(0, 20)));
         return Result.success(recommendRepository.findRecommendMovieOfUser(username));
     }
 

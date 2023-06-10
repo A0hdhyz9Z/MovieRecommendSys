@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class FavoriteResponseData {
+public class FavoriteData {
     List<Actor> actors;
     Worker director;
     Movie movie;

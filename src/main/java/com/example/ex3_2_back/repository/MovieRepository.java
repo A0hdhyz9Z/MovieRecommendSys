@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
     List<Movie> findByOrderByVoteAverage();
 
+    @RestResource(path ="findByOrderByVoteAverage-Pageable" )
     // @czy 这里 Pageable pageable
     Page<Movie> findByOrderByVoteAverage(Pageable pageable);
 
@@ -23,10 +25,18 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     List<Movie> findMovieWithTags(List<String> tags);
 
     @Query("select k.movie from Keyword k,TagHub t where t.id = k.tagHub.id and t.name in :tags")
+    @RestResource(path = "findMovieWithTags-Pageable")
     Page<Movie> findMovieWithTags(List<String> tags, Pageable pageable);
 
     @Transactional
     @Modifying
     @Query("UPDATE Movie m SET m.seenCount = m.seenCount + 1 WHERE m.id = :movieId")
     void incrementSeenCount(Integer movieId);
+
+    @Query("select gm.movie from GenreHub g, Genre gm where g.id = gm.genreHub.id and g.name in :genres")
+    List<Movie> findMovieWithGenres(List<String> genres);
+
+    @Query("select gm.movie from GenreHub g, Genre gm where g.id = gm.genreHub.id and g.name in :genres")
+    @RestResource(path = "findMovieWithGenres-Pageable")
+    Page<Movie> findMovieWithGenres(List<String> genres, Pageable pageable);
 }

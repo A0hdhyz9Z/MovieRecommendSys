@@ -6,6 +6,7 @@ import com.example.ex3_2_back.domain.auth.LoginDomain;
 import com.example.ex3_2_back.domain.auth.RegisterDomain;
 import com.example.ex3_2_back.service.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @NotNull
-    public Result login(@RequestBody @NotNull LoginDomain loginDomain, HttpServletResponse response) {
+    public Result login(@RequestBody @NotNull @Valid LoginDomain loginDomain, HttpServletResponse response) {
         return authService.login(loginDomain, response);
     }
 
@@ -40,9 +41,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public Result register(@RequestBody @NotNull RegisterDomain registerDomain) {
+    public Result register(@RequestBody @NotNull @Valid RegisterDomain registerDomain) {
         return authService.register(registerDomain);
     }
-
 
 }

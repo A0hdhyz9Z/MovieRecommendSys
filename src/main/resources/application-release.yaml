@@ -13,4 +13,6 @@ spring:
     password: Movie123456
     username: movie_share
 
+
+
 dataInit: false

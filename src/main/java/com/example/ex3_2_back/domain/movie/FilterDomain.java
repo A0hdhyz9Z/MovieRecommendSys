@@ -14,4 +14,5 @@ import java.util.List;
 public class FilterDomain {
     Float vote;
     final List<String> tags = new ArrayList<>();
+    final List<String> genres = new ArrayList<>();
 }

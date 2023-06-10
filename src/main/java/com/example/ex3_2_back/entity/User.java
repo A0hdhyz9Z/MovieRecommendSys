@@ -1,6 +1,7 @@
 package com.example.ex3_2_back.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 
@@ -21,6 +22,7 @@ public class User {
     String password;
     @Builder.Default
     Gender gender = Gender.Unknown;
+    @Email
     String email;
     String phone;
     String address;

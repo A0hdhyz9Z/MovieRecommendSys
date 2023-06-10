@@ -1,5 +1,6 @@
 package com.example.ex3_2_back.domain.auth;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Builder
@@ -10,6 +11,8 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class LoginDomain {
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
 }

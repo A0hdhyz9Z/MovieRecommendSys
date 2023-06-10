@@ -1,6 +1,7 @@
 package com.example.ex3_2_back.domain.movie;
 
 import com.example.ex3_2_back.entity.Actor;
+import com.example.ex3_2_back.entity.GenreHub;
 import com.example.ex3_2_back.entity.Movie;
 import com.example.ex3_2_back.entity.Worker;
 import lombok.*;
@@ -19,4 +20,5 @@ public class DetailData {
     List<Actor> actors;
     Worker director;
     Movie movie;
+    List<GenreHub> genreHubs;
 }
