@@ -4,14 +4,17 @@ import com.example.ex3_2_back.domain.Result;
 import com.example.ex3_2_back.entity.Rate;
 import com.example.ex3_2_back.entity.User;
 import com.example.ex3_2_back.repository.RateRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/rate")
 @Slf4j
+@Tag(name = "RateController")
 public class RateController {
 
     RateRepository rateRepository;
@@ -26,9 +29,7 @@ public class RateController {
     }
 
     @GetMapping
-    public Result findAllOfUser(HttpServletRequest request) {
-        var username = request.getAttribute("username").toString();
-        log.info(username);
+    public Result findAllOfUser(HttpServletRequest request, @Nullable @RequestHeader(name = "username", required = false) String username) {
         return Result.success(rateRepository.findAllByUser(User.builder().name(username).build()));
     }
 

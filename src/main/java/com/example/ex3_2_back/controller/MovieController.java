@@ -96,7 +96,7 @@ public class MovieController {
     }
 
     @PostMapping("/search")
-    @Operation(summary = "查找电影")
+    @Operation(summary = "查找电影1")
     public TResult<Page<Movie>> search(@RequestBody @NotNull SearchDomain searchDomain, @RequestParam int page, @RequestParam int pageSize) {
         return TResult.success(movieRepository.findByOriginalTitleLike(searchDomain.getMovieName(), PageRequest.of(page - 1, pageSize)));
     }
