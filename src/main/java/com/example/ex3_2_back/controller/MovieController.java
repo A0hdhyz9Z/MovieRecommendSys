@@ -1,6 +1,7 @@
 package com.example.ex3_2_back.controller;
 
 import com.example.ex3_2_back.domain.Result;
+import com.example.ex3_2_back.domain.TResult;
 import com.example.ex3_2_back.domain.movie.DetailData;
 import com.example.ex3_2_back.domain.movie.FilterDomain;
 import com.example.ex3_2_back.domain.movie.SearchDomain;
@@ -8,6 +9,7 @@ import com.example.ex3_2_back.entity.Favorite;
 import com.example.ex3_2_back.entity.Movie;
 import com.example.ex3_2_back.entity.User;
 import com.example.ex3_2_back.repository.*;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.jetbrains.annotations.NotNull;
@@ -180,7 +182,8 @@ public class MovieController {
     }
 
     @GetMapping("/detail/{movieId}")
-    public Result detail(@PathVariable Integer movieId) {
+    @Operation(summary = "电影的详细信息")
+    public TResult<DetailData> detail(@NotNull HttpServletRequest request, @PathVariable Integer movieId) {
         DetailData detailData = new DetailData();
         detailData.setActors(actorRepository.findActorsOfMovie(movieId));
         var optMovie = movieRepository.findById(movieId);
@@ -189,7 +192,12 @@ public class MovieController {
         optMovie.ifPresent(detailData::setMovie);
         optMovie.ifPresent(movie -> movieRepository.incrementSeenCount(movie.getId()));
         detailData.setGenreHubs(genreHubRepository.findGenreHubOfMovie(movieId));
-        return Result.success(detailData);
+        String username = request.getHeader("username");
+        userRepository.findByName(username).ifPresent(user -> {
+            detailData.setUser(user);
+            optMovie.ifPresent(movie -> detailData.setFavorite(favoriteRepository.existsByUserAndMovie(user, movie)));
+        });
+        return TResult.success(detailData);
     }
 
     @GetMapping("/recommend")

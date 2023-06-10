@@ -1,9 +1,6 @@
 package com.example.ex3_2_back.domain.movie;
 
-import com.example.ex3_2_back.entity.Actor;
-import com.example.ex3_2_back.entity.GenreHub;
-import com.example.ex3_2_back.entity.Movie;
-import com.example.ex3_2_back.entity.Worker;
+import com.example.ex3_2_back.entity.*;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -21,4 +18,6 @@ public class DetailData {
     Worker director;
     Movie movie;
     List<GenreHub> genreHubs;
+    User user;
+    boolean favorite;
 }
