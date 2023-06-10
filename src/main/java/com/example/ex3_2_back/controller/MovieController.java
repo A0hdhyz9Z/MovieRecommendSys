@@ -221,6 +221,7 @@ public class MovieController {
             return TResult.error("No such movie " + movieId);
         }
         Movie movie = optionalMovie.get();
+        movieRepository.incrementSeenCount(movie.getId());
         detailData.setMovie(movie);
 
         detailData.setActors(actorRepository.findActorsOfMovie(movieId));
