@@ -148,13 +148,15 @@ public class MovieController {
         var optDirector = workerRepository.getDirectorOfMovie(movieId);
         optDirector.ifPresent(detailData::setDirector);
         optMovie.ifPresent(detailData::setMovie);
+        optMovie.ifPresent(movie -> movieRepository.incrementSeenCount(movie.getId()));
         return Result.success(detailData);
     }
 
     @GetMapping("/recommend")
     public Result recommend(@NotNull HttpServletRequest request) {
         String username = request.getHeader("username");
-        return Result.success(recommendRepository.findRecommendMovieOfUser(username, PageRequest.of(0, 20)));
+//        return Result.success(recommendRepository.findRecommendMovieOfUser(username, PageRequest.of(0, 20)));
+        return Result.success(recommendRepository.findRecommendMovieOfUser(username));
     }
 
 }
