@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -153,7 +154,7 @@ public class MovieController {
     @GetMapping("/recommend")
     public Result recommend(@NotNull HttpServletRequest request) {
         String username = request.getHeader("username");
-        return Result.success(recommendRepository.findRecommendMovieOfUser(username));
+        return Result.success(recommendRepository.findRecommendMovieOfUser(username, PageRequest.of(0, 20)));
     }
 
 }
