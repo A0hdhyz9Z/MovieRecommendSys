@@ -21,6 +21,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -134,17 +135,28 @@ public class MovieController {
     }
 
     @PostMapping("/filter/tags")
-    public Result filterWithTags(@RequestBody @NotNull FilterDomain filterDomain, @RequestParam int page, @RequestParam int pageSize) {
+    public Result filterWithTags(
+            @RequestBody @NotNull @Validated FilterDomain filterDomain,
+            @Schema(defaultValue = "1") @RequestParam int page,
+            @Schema(defaultValue = "10") @RequestParam int pageSize
+    ) {
+
         return Result.success(movieRepository.findMovieWithTags(filterDomain.getTags(), PageRequest.of(page - 1, pageSize)));
     }
 
     @PostMapping("/filter/genres")
-    public Result filterWithGenre(@RequestBody @NotNull FilterDomain filterDomain, @RequestParam int page, @RequestParam int pageSize) {
+    public Result filterWithGenre(
+            @RequestBody @NotNull @Validated FilterDomain filterDomain,
+            @Schema(defaultValue = "1") @RequestParam int page,
+            @Schema(defaultValue = "10") @RequestParam int pageSize) {
         return Result.success(movieRepository.findMovieWithGenres(filterDomain.getGenres(), PageRequest.of(page - 1, pageSize)));
     }
 
     @GetMapping("/favorite")
-    public TResult<List<Movie>> getFavorite(@Nullable @RequestHeader("username") String username) {
+    public TResult<List<Movie>> getFavorite(
+            @Schema(defaultValue = "15") @Nullable @RequestHeader("username") String username
+    ) {
+
         return TResult.success(favoriteRepository.findFavoriteOfUser(username));
     }
 
@@ -158,7 +170,11 @@ public class MovieController {
     }
 
     @PostMapping("/favorite/{movieId}")
-    public Result setFavorite(@PathVariable Integer movieId, @Nullable @RequestHeader("username") String username) {
+    public Result setFavorite(
+            @Schema(defaultValue = "862") @PathVariable Integer movieId,
+            @Schema(defaultValue = "15") @Nullable @RequestHeader("username") String username
+    ) {
+
         Optional<User> optionalUser = userRepository.findByName(username);
 
         if (optionalUser.isEmpty()) {
