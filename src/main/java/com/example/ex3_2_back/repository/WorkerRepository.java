@@ -13,7 +13,7 @@ import java.util.Optional;
 @RepositoryRestResource(path = "WorkerRepository")
 @Tag(name = "获取工作人员")
 public interface WorkerRepository extends JpaRepository<Worker, Integer> {
-    @Query("select w.worker from Working w where w.position = 'director' and w.movie.id = :movieId")
+    @Query("select w.worker from Working w where w.position = 'Director' and w.movie.id = :movieId")
     @RestResource(path = "getDirectorOfMovie")
     @Operation(summary = "获取电影导演")
     Optional<Worker> getDirectorOfMovie(Integer movieId);

@@ -238,6 +238,8 @@ public class MovieController {
 
         detailData.setFavorite(favoriteRepository.existsByUserAndMovie(user, movie));
 
+        workerRepository.getDirectorOfMovie(movie.getId()).ifPresent(detailData::setDirector);
+
         Optional<Rate> optionalRate = rateRepository.findByUserAndMovie(user, movie);
         if (optionalRate.isPresent()) {
             Rate rate = optionalRate.get();
