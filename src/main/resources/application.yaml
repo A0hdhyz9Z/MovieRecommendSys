@@ -13,3 +13,5 @@ springdoc:
     - group: 'zzq'
       paths-to-match: '/**'
       packages-to-scan: com.example.ex3_2_back
+
+interceptor: false
