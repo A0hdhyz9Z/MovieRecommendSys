@@ -18,8 +18,12 @@ public class WorkerRepositoryTests {
 
     @Test
     public void test_getDirectorOfMovie() {
-        var a = workerRepository.getDirectorOfMovie(1);
-        a.ifPresent(worker -> log.info(worker.toString()));
+        var a = workerRepository.getDirectorOfMovie(862);
+        if (a.isPresent()) {
+            log.info(a.get().toString());
+        } else {
+            log.info("None");
+        }
     }
 
     @Test

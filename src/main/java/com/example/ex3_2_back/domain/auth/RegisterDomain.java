@@ -29,5 +29,6 @@ public class RegisterDomain {
     @Schema(defaultValue = "18810393672")
     private String phone;
     @Builder.Default
+    @Schema(defaultValue = "男")
     private Gender gender = Gender.Unknown;
 }

@@ -226,6 +226,7 @@ public class MovieController {
 
         detailData.setActors(actorRepository.findActorsOfMovie(movieId));
 
+        workerRepository.getDirectorOfMovie(movie.getId()).ifPresent(detailData::setDirector);
 
         detailData.setGenreHubs(genreHubRepository.findGenreHubOfMovie(movieId));
 

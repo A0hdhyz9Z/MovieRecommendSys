@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -57,16 +58,18 @@ public class AuthService {
     @NotNull
     public Result register(@NotNull RegisterDomain registerDomain) {
 
-        if (userRepository.existsByName(registerDomain.getUsername())) {
-            String message = String.format("username %s already exists", registerDomain.getUsername());
-            log.info(message);
-            return Result.error(message).addErrors(registerDomain.getUsername());
-        }
+
 
         if (!Objects.equals(registerDomain.getPassword1(), registerDomain.getPassword2())) {
             String message = "inconsistent two passwords";
             log.info(message);
             return Result.error(message);
+        }
+
+        if (userRepository.existsByName(registerDomain.getUsername())) {
+            String message = String.format("username %s already exists", registerDomain.getUsername());
+            log.info(message);
+            return Result.error(message).addErrors(registerDomain.getUsername());
         }
 
         userRepository.save(User.builder()

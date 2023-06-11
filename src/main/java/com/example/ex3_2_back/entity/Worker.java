@@ -10,6 +10,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Worker {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
