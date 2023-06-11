@@ -115,7 +115,7 @@ public class MovieController {
     }
 
     @PostMapping("/search2")
-    @Operation(summary = "查找电影2")
+    @Operation(summary = "查找电影2", description = "search2")
     public TResult<Page<Movie>> search2(@RequestBody @NotNull SearchDomain searchDomain, @RequestParam int page, @RequestParam int pageSize) {
         return TResult.success(movieRepository.findAll(new Example<Movie>() {
             @NotNull
@@ -135,6 +135,7 @@ public class MovieController {
     }
 
     @PostMapping("/filter/tags")
+    @Operation(summary = "filterWithTags", description = "filterWithTags")
     public Result filterWithTags(
             @RequestBody @NotNull @Validated FilterDomain filterDomain,
             @Schema(defaultValue = "1") @RequestParam int page,
